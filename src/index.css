@@ -1,1 +1,8 @@
 @import "tailwindcss";
+.navbar-shine {
+  transition: all 2.5s ease;
+}
+
+.group:hover .navbar-shine {
+  left: 120%;
+}
