@@ -43,8 +43,8 @@ function Projects() {
         "Weather Insights",
         "Admin Dashboard",
       ],
-      demo: "#",
-      github: "#",
+      demo: "https://farmer-solutions-ten.vercel.app/",
+      github: "https://github.com/devsarthak-1503/Farmer_One_Stop_Solution",
       architecture: [
         { name: "Farmer", icon: <User size={20} /> },
         { name: "Marketplace", icon: <ShoppingBag size={20} /> },
@@ -73,7 +73,7 @@ function Projects() {
         "Deezer Integration",
       ],
       demo: "#",
-      github: "#",
+      github: "https://github.com/devsarthak-1503/MOODY-PLAYER",
       architecture: [
         { name: "Camera", icon: <Camera size={20} /> },
         { name: "Face Detection", icon: <Scan size={20} /> },
@@ -94,7 +94,7 @@ function Projects() {
         "User Dashboard",
       ],
       demo: "#",
-      github: "#",
+      github: "https://github.com/devsarthak-1503/smart-task-manager",
     },
     {
       title: "Finance Backend System",
@@ -107,7 +107,7 @@ function Projects() {
         "Secure Architecture",
       ],
       demo: "#",
-      github: "#",
+      github: "https://github.com/devsarthak-1503/finance-backend-engine",
     },
   ];
 
