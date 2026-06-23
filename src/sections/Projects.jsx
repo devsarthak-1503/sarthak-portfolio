@@ -72,7 +72,7 @@ function Projects() {
         "AI Mood Summary",
         "Deezer Integration",
       ],
-      demo: "#",
+      demo: "https://moody-player-ai-pearl.vercel.app/",
       github: "https://github.com/devsarthak-1503/MOODY-PLAYER",
       architecture: [
         { name: "Camera", icon: <Camera size={20} /> },
@@ -93,7 +93,7 @@ function Projects() {
         "Task CRUD",
         "User Dashboard",
       ],
-      demo: "#",
+      demo: "https://smart-task-manager-nrxsa0yeg-sarthakgaikwad020-2651s-projects.vercel.app/",
       github: "https://github.com/devsarthak-1503/smart-task-manager",
     },
     {
@@ -106,7 +106,7 @@ function Projects() {
         "Aggregation Pipeline",
         "Secure Architecture",
       ],
-      demo: "#",
+      demo: "https://finance-backend-engine.onrender.com/",
       github: "https://github.com/devsarthak-1503/finance-backend-engine",
     },
   ];

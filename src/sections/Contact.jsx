@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import emailjs from '@emailjs/browser';
 import {
   Mail,
   MapPin,
@@ -121,20 +122,14 @@ function Contact() {
 
     try {
       // ==========================================
-      // EmailJS Ready Architecture
-      // Uncomment and configure when ready:
+      // EmailJS Real Integration (Simulation replaced)
       // ==========================================
-      // await emailjs.send(
-      //   import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      //   import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-      //   formData,
-      //   import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      // );
-
-      // Safe Network Simulation
-      await new Promise((resolve) => {
-        networkTimeoutRef.current = setTimeout(resolve, 1500);
-      });
+      await emailjs.send(
+        'service_s85vs5k',     // Service ID
+        'template_vd0z03e',    // Template ID
+        formData,              // User inputs
+        'HhjoteHTYFJM5sv8h'    // Public Key
+      );
 
       setStatus("success");
       setFormData({ name: "", email: "", subject: "", message: "" });
@@ -208,7 +203,6 @@ function Contact() {
                 </>
               );
 
-              // Using motion directly on a tag ensures animation propagates perfectly
               return item.link ? (
                 <motion.a
                   key={item.title}
@@ -258,7 +252,7 @@ function Contact() {
                       aria-invalid={!!errors.name}
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="Sarthak Gaikwad"
+                      placeholder="Your Name"
                       className={`w-full rounded-xl border bg-[#0A0F1A] px-5 py-4 text-sm text-white placeholder-slate-500 outline-none transition-all ${errors.name
                         ? "border-red-500/50 focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.15)]"
                         : "border-white/10 focus:border-cyan-400/50 focus:shadow-[0_0_15px_rgba(34,211,238,0.15)]"
