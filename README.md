@@ -2,7 +2,7 @@
 
 Personal developer portfolio built to showcase projects, technical skills, GitHub activity, and an AI-powered portfolio assistant.
 
-Live Portfolio: [[https://devsarthak-1503.github.io/portfolio/](https://agent-6a37d609af7c928f--wondrous-platypus-9bdf31.netlify.app/)](https://sarthak-portfolio-git-main-sarthakgaikwad020-2651s-projects.vercel.app/)
+Live Portfoli(https://agent-6a37d609af7c928f--wondrous-platypus-9bdf31.netlify.app/)(https://sarthak-portfolio-git-main-sarthakgaikwad020-2651s-projects.vercel.app/)
 
 ## Overview
 
