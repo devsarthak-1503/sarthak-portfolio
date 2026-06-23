@@ -93,7 +93,7 @@ function Projects() {
         "Task CRUD",
         "User Dashboard",
       ],
-      demo: "https://smart-task-manager-nrxsa0yeg-sarthakgaikwad020-2651s-projects.vercel.app/",
+      demo: "https://smart-task-manager-roan.vercel.app/login",
       github: "https://github.com/devsarthak-1503/smart-task-manager",
     },
     {
