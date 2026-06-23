@@ -4,7 +4,7 @@ Personal developer portfolio built to showcase projects, technical skills, GitHu
 
 # Live Portfolio
 
-https://sarthak-portfolio-git-main-sarthakgaikwad020-2651s-projects.vercel.app/
+https://sarthak-portfolio-virid.vercel.app/
 
 ## Overview
 
