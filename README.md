@@ -37,7 +37,6 @@ AI & Integrations
 
 * Groq API
 * ElevenLabs
-* Gemini API
 
 Tools
 
