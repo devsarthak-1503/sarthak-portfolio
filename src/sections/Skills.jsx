@@ -13,7 +13,9 @@ function Skills() {
       icon: Code2,
       skills: [
         "React",
+        "Next.js",
         "JavaScript",
+          "Redux",
         "Tailwind CSS",
         "HTML",
         "CSS",
@@ -30,6 +32,7 @@ function Skills() {
         "REST APIs",
         "JWT",
         "Authentication",
+        "Sequelize",
       ],
     },
 
