@@ -15,7 +15,7 @@ function Skills() {
         "React",
         "Next.js",
         "JavaScript",
-          "Redux",
+        "Redux",
         "Tailwind CSS",
         "HTML",
         "CSS",
@@ -64,11 +64,9 @@ function Skills() {
         "GitHub",
         "Postman",
         "VS Code",
-
         "Vercel",
         "Render",
         "Netlify",
-
         "MongoDB Atlas",
         "ImageKit",
       ],
@@ -79,6 +77,7 @@ function Skills() {
   return (
     <section
       id="skills"
+      aria-label="Technical Skills and Expertise"
       className="relative overflow-hidden py-32"
     >
       {/* Background Glow */}
@@ -94,7 +93,7 @@ function Skills() {
           </p>
 
           <h2 className="text-4xl font-bold text-white md:text-5xl lg:text-6xl">
-            Tech Stack & Expertise
+            Tech Stack &amp; Expertise
           </h2>
 
           <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-slate-400">

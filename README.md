@@ -28,9 +28,10 @@ The application includes project showcases, technical information, GitHub integr
 
 Frontend
 
+* Next.js (App Router)
 * React
-* JavaScript
-* Tailwind CSS
+* TypeScript-compatible JavaScript
+* Tailwind CSS v4
 * Framer Motion
 
 AI & Integrations
@@ -42,18 +43,23 @@ Tools
 
 * Git
 * GitHub
-* Vite
+* Vercel
 
 ## Project Structure
 
 ```text
 src/
+├── app/
+│   ├── layout.jsx       # Root layout with Metadata API
+│   ├── page.jsx         # Main single-page portfolio
+│   ├── globals.css      # Global styles
+│   ├── robots.js        # Dynamic robots.txt
+│   └── sitemap.js       # Dynamic sitemap.xml
 ├── assets/
 ├── components/
 ├── data/
-├── services/
-├── App.jsx
-└── main.jsx
+├── sections/
+└── services/
 ```
 
 ## Local Development
@@ -82,14 +88,19 @@ Build for production:
 npm run build
 ```
 
+Start production server:
+
+```bash
+npm run start
+```
+
 ## Environment Variables
 
-Create a `.env` file and configure the required API keys:
+Create a `.env.local` file and configure the required API keys:
 
 ```env
-VITE_GROQ_API_KEY=your_key
-VITE_ELEVENLABS_API_KEY=your_key
-VITE_GEMINI_API_KEY=your_key
+NEXT_PUBLIC_GROQ_API_KEY=your_key
+NEXT_PUBLIC_ELEVENLABS_API_KEY=your_key
 ```
 
 ## AI Portfolio Assistant

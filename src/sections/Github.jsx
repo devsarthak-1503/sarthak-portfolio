@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import {
   GitBranch,
@@ -59,26 +61,26 @@ function GithubSection() {
     {
       year: "2025",
       title: "Full Stack Development",
-      desc: "React, Backend Development and Full Stack Applications.",
+      desc: "React, Node.js, Express, MongoDB, REST APIs, Authentication and Backend Architectures.",
     },
     {
       year: "2026",
-      title: "AI Powered Applications",
-      desc: "AI-powered products, MERN architecture and scalable systems.",
+      title: "AI Integrations & Beyond",
+      desc: "Full stack production-grade applications, AI integrations, voice systems and real-time platforms.",
     },
   ];
 
   const strengths = [
     {
-      title: "Full Stack Development",
+      title: "Full Stack MERN Development",
       icon: <Layers3 className="mb-4 text-cyan-400" size={28} />,
     },
     {
-      title: "Backend Architecture",
+      title: "Backend Development",
       icon: <Database className="mb-4 text-cyan-400" size={28} />,
     },
     {
-      title: "AI Integration",
+      title: "AI Integrations",
       icon: <Brain className="mb-4 text-cyan-400" size={28} />,
     },
     {
@@ -88,7 +90,7 @@ function GithubSection() {
   ];
 
   return (
-    <section id="github" className="relative overflow-hidden py-32">
+    <section id="github" aria-label="Open Source and GitHub Activity" className="relative overflow-hidden py-32">
       <div className="absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/5 blur-[180px]" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
@@ -96,7 +98,7 @@ function GithubSection() {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "150px" }}
           transition={{ duration: 0.6 }}
           className="mb-24 text-center"
         >
@@ -105,7 +107,7 @@ function GithubSection() {
           </p>
 
           <h2 className="text-4xl font-bold text-white md:text-5xl lg:text-6xl">
-            Open Source & Development Journey
+            Open Source &amp; Development Journey
           </h2>
 
           <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-slate-400">

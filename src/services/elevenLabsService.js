@@ -1,39 +1,53 @@
 /**
  * ElevenLabs Text-to-Speech Service
  * Production-ready implementation for AI Sarthak Voice Mode
+ * Next.js compatible — SSR safe, resilient error handling
  */
 
-const API_KEY = import.meta.env.VITE_ELEVENLABS_API_KEY;
+// Support both Next.js (NEXT_PUBLIC_) and legacy Vite (VITE_) env vars
+const rawApiKey =
+  (typeof process !== "undefined" && process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY) ||
+  (typeof process !== "undefined" && process.env.VITE_ELEVENLABS_API_KEY) ||
+  "";
 
-// 👇 Yahan apni nayi Indian Voice ID paste karo
+const API_KEY = rawApiKey.trim();
 const VOICE_ID = "ptLlkxMDy9xKpvEf7BUA";
 
 let currentAudio = null;
 
-// Ye 'export' keyword hona zaroori hai, iske bina Vite error dega
 export const speakText = async (text) => {
-  if (!text || text.trim() === "") return Promise.resolve();
+  // Guard: only run in browser environment
+  if (typeof window === "undefined") return { success: false, reason: "ssr" };
+  if (!text || text.trim() === "") return { success: false, reason: "empty_text" };
 
   stopSpeaking();
 
-  try {
-    if (!API_KEY) {
-      console.error("ElevenLabs Configuration Error: API key is missing.");
-      return Promise.resolve();
-    }
+  // Validate API key presence
+  if (!API_KEY) {
+    console.warn("ElevenLabs: NEXT_PUBLIC_ELEVENLABS_API_KEY is not set in .env.local. Voice playback disabled.");
+    return { success: false, reason: "missing_key" };
+  }
 
+  // Validate API key format (ElevenLabs secret keys start with 'sk_')
+  if (!API_KEY.startsWith("sk_")) {
+    console.warn(
+      "ElevenLabs: API key appears to be an ID instead of a secret key. Secret keys start with 'sk_'. Please check your ElevenLabs settings at https://elevenlabs.io/app/settings/api-keys"
+    );
+    return { success: false, reason: "invalid_key_format" };
+  }
+
+  try {
     const response = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`,
       {
         method: "POST",
         headers: {
-          "Accept": "audio/mpeg",
+          Accept: "audio/mpeg",
           "Content-Type": "application/json",
           "xi-api-key": API_KEY,
         },
         body: JSON.stringify({
           text: text,
-          // eleven_multilingual_v2 best hai Indian accents ke liye
           model_id: "eleven_multilingual_v2",
           voice_settings: {
             stability: 0.5,
@@ -47,42 +61,52 @@ export const speakText = async (text) => {
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.detail?.message || `HTTP ${response.status} - Failed to generate speech`);
+      const message = errorData.detail?.message || `HTTP ${response.status}`;
+      console.warn("ElevenLabs API warning:", message);
+      return { success: false, reason: message };
     }
 
     const audioBlob = await response.blob();
     const audioUrl = URL.createObjectURL(audioBlob);
 
     currentAudio = new Audio(audioUrl);
-    await currentAudio.play();
 
     return new Promise((resolve) => {
       currentAudio.onended = () => {
         URL.revokeObjectURL(audioUrl);
         currentAudio = null;
-        resolve();
+        resolve({ success: true });
       };
 
       currentAudio.onerror = (e) => {
-        console.error("Audio playback error:", e);
+        console.warn("Audio playback ended with error:", e);
         URL.revokeObjectURL(audioUrl);
         currentAudio = null;
-        resolve();
+        resolve({ success: false, reason: "playback_error" });
       };
-    });
 
+      currentAudio.play().catch((playErr) => {
+        console.warn("Audio play prevented (e.g. autoplay policy):", playErr);
+        URL.revokeObjectURL(audioUrl);
+        currentAudio = null;
+        resolve({ success: false, reason: "autoplay_prevented" });
+      });
+    });
   } catch (error) {
-    console.error("ElevenLabs TTS Error:", error);
-    return Promise.resolve();
+    console.warn("ElevenLabs TTS request could not be completed:", error?.message || error);
+    return { success: false, reason: "network_or_fetch_error" };
   }
 };
 
-// Ye function bhi export hona chahiye
 export const stopSpeaking = () => {
   if (currentAudio) {
-    currentAudio.pause();
-    currentAudio.currentTime = 0;
-    currentAudio.src = "";
+    try {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      currentAudio.src = "";
+    } catch {
+      // Ignore errors on teardown
+    }
     currentAudio = null;
   }
 };

@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import {
   ArrowUpRight,
@@ -112,7 +114,7 @@ function Projects() {
   ];
 
   return (
-    <section id="projects" className="relative overflow-hidden py-32">
+    <section id="projects" aria-label="Featured Projects" className="relative overflow-hidden py-32">
       {/* Background Glow */}
       <div className="absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/5 blur-[180px]" />
 
@@ -121,7 +123,7 @@ function Projects() {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "150px" }}
           transition={{ duration: 0.6 }}
           className="mb-24 text-center"
         >
@@ -143,7 +145,7 @@ function Projects() {
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "150px" }}
           transition={{ duration: 0.6 }}
           className="group mb-12 rounded-[32px] border border-cyan-400/10 bg-white/5 p-8 backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/30 hover:shadow-[0_0_50px_rgba(34,211,238,0.15)] lg:p-12"
         >
@@ -162,66 +164,53 @@ function Projects() {
                   {projects[0].subtitle}
                 </p>
 
-                <p className="mb-8 leading-relaxed text-slate-400">
+                <p className="mb-8 leading-relaxed text-slate-300">
                   {projects[0].description}
                 </p>
 
-                {/* Premium Mini Stat Cards */}
-                <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                  <div className="flex flex-col items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/5 p-3 text-center transition-colors hover:bg-cyan-400/10">
-                    <Brain size={20} className="mb-2 text-cyan-400" />
-                    <span className="text-xs font-semibold text-slate-200">AI Powered</span>
-                  </div>
-                  <div className="flex flex-col items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/5 p-3 text-center transition-colors hover:bg-cyan-400/10">
-                    <Activity size={20} className="mb-2 text-cyan-400" />
-                    <span className="text-xs font-semibold text-slate-200">Real-Time</span>
-                  </div>
-                  <div className="flex flex-col items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/5 p-3 text-center transition-colors hover:bg-cyan-400/10">
-                    <ShoppingBag size={20} className="mb-2 text-cyan-400" />
-                    <span className="text-xs font-semibold text-slate-200">Marketplace</span>
-                  </div>
-                  <div className="flex flex-col items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/5 p-3 text-center transition-colors hover:bg-cyan-400/10">
-                    <CreditCard size={20} className="mb-2 text-cyan-400" />
-                    <span className="text-xs font-semibold text-slate-200">Payments</span>
-                  </div>
-                </div>
-
+                {/* Tech Pills */}
                 <div className="mb-8 flex flex-wrap gap-2">
                   {projects[0].tech.map((item) => (
                     <span
                       key={item}
-                      className="rounded-md border border-cyan-400/15 bg-white/5 px-3 py-1.5 text-sm font-medium text-slate-300 transition-colors hover:bg-cyan-400/10 hover:text-cyan-300"
+                      className="rounded-lg border border-cyan-400/20 bg-white/5 px-3 py-1 text-sm font-medium text-slate-300"
                     >
                       {item}
                     </span>
                   ))}
                 </div>
 
-                <div className="mb-10 grid grid-cols-2 gap-y-4 gap-x-2">
+                {/* Features list */}
+                <div className="mb-10 grid grid-cols-2 gap-y-3.5 gap-x-2">
                   {projects[0].features.map((item) => (
                     <div
                       key={item}
                       className="flex items-center gap-2.5 text-sm font-medium text-slate-300"
                     >
-                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-cyan-400/20 text-cyan-400">
-                        <div className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-cyan-400/20 text-cyan-400">
+                        <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
                       </span>
-                      {item}
+                      <span>{item}</span>
                     </div>
                   ))}
                 </div>
 
+                {/* Action Buttons */}
                 <div className="flex flex-wrap gap-4">
                   <a
                     href={projects[0].demo}
-                    className="flex items-center gap-2 rounded-xl bg-cyan-500 px-6 py-3.5 font-semibold text-black transition-all hover:scale-105 hover:bg-cyan-400 hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 rounded-xl bg-cyan-400 px-6 py-3.5 font-semibold text-black transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(34,211,238,0.7)]"
                   >
-                    Explore Platform
+                    Live Demo
                     <ArrowUpRight size={18} strokeWidth={2.5} />
                   </a>
 
                   <a
                     href={projects[0].github}
+                    target="_blank"
+                    rel="noreferrer"
                     className="flex items-center gap-2 rounded-xl border border-cyan-400/20 bg-white/5 px-6 py-3.5 font-medium text-white backdrop-blur-md transition-all hover:border-cyan-400 hover:bg-cyan-400/5 hover:text-cyan-400"
                   >
                     <GitBranch size={18} />
@@ -231,25 +220,21 @@ function Projects() {
               </div>
             </div>
 
-            <div className="flex items-center justify-center lg:justify-end rounded-2xl bg-black/20 p-6 border border-white/5">
+            {/* Architecture Node Visualizer */}
+            <div className="flex items-center justify-center rounded-2xl border border-white/5 bg-black/20 p-6 backdrop-blur-md">
               <div className="w-full max-w-sm">
                 <div className="flex flex-col items-center">
                   {projects[0].architecture.map((step, idx) => (
                     <div key={step.name} className="flex flex-col items-center w-full">
-                      <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        className="group relative flex w-full items-center justify-between rounded-xl border border-cyan-400/15 bg-[#0A0F1A] p-4 shadow-lg transition-all hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.15)]"
-                      >
-                        <div className="flex items-center gap-4">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-cyan-400/10 text-cyan-400 transition-colors group-hover:bg-cyan-400 group-hover:text-black">
-                            {step.icon}
-                          </div>
-                          <span className="font-semibold text-slate-200 group-hover:text-white">
+                      <div className="flex w-full items-center justify-between rounded-xl border border-cyan-400/20 bg-black/40 p-3.5 shadow-md">
+                        <div className="flex items-center gap-3">
+                          <span className="text-cyan-400">{step.icon}</span>
+                          <span className="text-sm font-semibold text-slate-200">
                             {step.name}
                           </span>
                         </div>
-                        <div className="h-2 w-2 rounded-full bg-cyan-500/50 group-hover:bg-cyan-400 group-hover:shadow-[0_0_10px_rgba(34,211,238,1)]" />
-                      </motion.div>
+                        <div className="h-2 w-2 rounded-full bg-cyan-400/80 shadow-[0_0_8px_#22d3ee]" />
+                      </div>
 
                       {idx !== projects[0].architecture.length - 1 && (
                         <div className="flex flex-col items-center py-2">
@@ -269,30 +254,26 @@ function Projects() {
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "150px" }}
           transition={{ duration: 0.6 }}
           className="group mb-16 rounded-[32px] border border-cyan-400/10 bg-white/5 p-8 backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/30 hover:shadow-[0_0_50px_rgba(34,211,238,0.15)] lg:p-12"
         >
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-8">
-            <div className="order-2 lg:order-1 flex items-center justify-center lg:justify-start rounded-2xl bg-black/20 p-6 border border-white/5">
+            {/* Architecture Column */}
+            <div className="order-2 lg:order-1 flex items-center justify-center rounded-2xl border border-white/5 bg-black/20 p-6 backdrop-blur-md">
               <div className="w-full max-w-sm">
                 <div className="flex flex-col items-center">
                   {projects[1].architecture.map((step, idx) => (
                     <div key={step.name} className="flex flex-col items-center w-full">
-                      <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        className="group relative flex w-full items-center justify-between rounded-xl border border-cyan-400/15 bg-[#0A0F1A] p-4 shadow-lg transition-all hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.15)]"
-                      >
-                        <div className="flex items-center gap-4">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-cyan-400/10 text-cyan-400 transition-colors group-hover:bg-cyan-400 group-hover:text-black">
-                            {step.icon}
-                          </div>
-                          <span className="font-semibold text-slate-200 group-hover:text-white">
+                      <div className="flex w-full items-center justify-between rounded-xl border border-cyan-400/20 bg-black/40 p-3.5 shadow-md">
+                        <div className="flex items-center gap-3">
+                          <span className="text-cyan-400">{step.icon}</span>
+                          <span className="text-sm font-semibold text-slate-200">
                             {step.name}
                           </span>
                         </div>
-                        <div className="h-2 w-2 rounded-full bg-cyan-500/50 group-hover:bg-cyan-400 group-hover:shadow-[0_0_10px_rgba(34,211,238,1)]" />
-                      </motion.div>
+                        <div className="h-2 w-2 rounded-full bg-cyan-400/80 shadow-[0_0_8px_#22d3ee]" />
+                      </div>
 
                       {idx !== projects[1].architecture.length - 1 && (
                         <div className="flex flex-col items-center py-2">
@@ -306,10 +287,11 @@ function Projects() {
               </div>
             </div>
 
-            <div className="order-1 flex flex-col justify-center lg:order-2 lg:pl-4">
+            {/* Content Column */}
+            <div className="order-1 flex flex-col justify-center lg:order-2">
               <div>
                 <span className="mb-5 inline-flex rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.2)]">
-                  AI Music Platform
+                  AI Music Experience
                 </span>
 
                 <h3 className="mb-3 text-3xl font-bold text-white lg:text-4xl">
@@ -320,59 +302,44 @@ function Projects() {
                   {projects[1].subtitle}
                 </p>
 
-                <p className="mb-8 leading-relaxed text-slate-400">
+                <p className="mb-8 leading-relaxed text-slate-300">
                   {projects[1].description}
                 </p>
 
-                {/* Premium Mini Stat Cards */}
-                <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                  <div className="flex flex-col items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/5 p-3 text-center transition-colors hover:bg-cyan-400/10">
-                    <Scan size={20} className="mb-2 text-cyan-400" />
-                    <span className="text-xs font-semibold text-slate-200">Face Detection</span>
-                  </div>
-                  <div className="flex flex-col items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/5 p-3 text-center transition-colors hover:bg-cyan-400/10">
-                    <Radio size={20} className="mb-2 text-cyan-400" />
-                    <span className="text-xs font-semibold text-slate-200">Deezer API</span>
-                  </div>
-                  <div className="flex flex-col items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/5 p-3 text-center transition-colors hover:bg-cyan-400/10">
-                    <Lock size={20} className="mb-2 text-cyan-400" />
-                    <span className="text-xs font-semibold text-slate-200">JWT Auth</span>
-                  </div>
-                  <div className="flex flex-col items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/5 p-3 text-center transition-colors hover:bg-cyan-400/10">
-                    <ListMusic size={20} className="mb-2 text-cyan-400" />
-                    <span className="text-xs font-semibold text-slate-200">Playlist Engine</span>
-                  </div>
-                </div>
-
+                {/* Tech Pills */}
                 <div className="mb-8 flex flex-wrap gap-2">
                   {projects[1].tech.map((item) => (
                     <span
                       key={item}
-                      className="rounded-md border border-cyan-400/15 bg-white/5 px-3 py-1.5 text-sm font-medium text-slate-300 transition-colors hover:bg-cyan-400/10 hover:text-cyan-300"
+                      className="rounded-lg border border-cyan-400/20 bg-white/5 px-3 py-1 text-sm font-medium text-slate-300"
                     >
                       {item}
                     </span>
                   ))}
                 </div>
 
-                <div className="mb-10 grid grid-cols-2 gap-y-4 gap-x-2">
+                {/* Features list */}
+                <div className="mb-10 grid grid-cols-2 gap-y-3.5 gap-x-2">
                   {projects[1].features.map((item) => (
                     <div
                       key={item}
                       className="flex items-center gap-2.5 text-sm font-medium text-slate-300"
                     >
-                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-cyan-400/20 text-cyan-400">
-                        <div className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-cyan-400/20 text-cyan-400">
+                        <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
                       </span>
-                      {item}
+                      <span>{item}</span>
                     </div>
                   ))}
                 </div>
 
+                {/* Action Buttons */}
                 <div className="flex flex-wrap gap-4">
                   <a
                     href={projects[1].demo}
-                    className="flex items-center gap-2 rounded-xl bg-cyan-500 px-6 py-3.5 font-semibold text-black transition-all hover:scale-105 hover:bg-cyan-400 hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 rounded-xl bg-cyan-400 px-6 py-3.5 font-semibold text-black transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(34,211,238,0.7)]"
                   >
                     Try Moody
                     <ArrowUpRight size={18} strokeWidth={2.5} />
@@ -380,6 +347,8 @@ function Projects() {
 
                   <a
                     href={projects[1].github}
+                    target="_blank"
+                    rel="noreferrer"
                     className="flex items-center gap-2 rounded-xl border border-cyan-400/20 bg-white/5 px-6 py-3.5 font-medium text-white backdrop-blur-md transition-all hover:border-cyan-400 hover:bg-cyan-400/5 hover:text-cyan-400"
                   >
                     <GitBranch size={18} />
@@ -397,7 +366,7 @@ function Projects() {
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "150px" }}
             className="flex flex-col justify-between rounded-[32px] border border-cyan-400/10 bg-white/5 p-8 backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/30 hover:shadow-[0_0_40px_rgba(34,211,238,0.15)] lg:p-10"
           >
             <div>
@@ -444,6 +413,8 @@ function Projects() {
             <div className="flex flex-wrap gap-4 pt-4 border-t border-white/5">
               <a
                 href={projects[2].demo}
+                target="_blank"
+                rel="noreferrer"
                 className="flex items-center gap-2 rounded-xl bg-cyan-500/10 px-5 py-2.5 text-sm font-semibold text-cyan-400 transition-all hover:bg-cyan-500 hover:text-black"
               >
                 Live Demo
@@ -451,6 +422,8 @@ function Projects() {
               </a>
               <a
                 href={projects[2].github}
+                target="_blank"
+                rel="noreferrer"
                 className="flex items-center gap-2 rounded-xl border border-white/10 px-5 py-2.5 text-sm font-medium text-slate-300 transition-all hover:border-cyan-400/30 hover:text-white"
               >
                 <GitBranch size={16} />
@@ -463,7 +436,7 @@ function Projects() {
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "150px" }}
             className="flex flex-col justify-between rounded-[32px] border border-cyan-400/10 bg-white/5 p-8 backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/30 hover:shadow-[0_0_40px_rgba(34,211,238,0.15)] lg:p-10"
           >
             <div>
@@ -510,6 +483,8 @@ function Projects() {
             <div className="flex flex-wrap gap-4 pt-4 border-t border-white/5">
               <a
                 href={projects[3].demo}
+                target="_blank"
+                rel="noreferrer"
                 className="flex items-center gap-2 rounded-xl bg-cyan-500/10 px-5 py-2.5 text-sm font-semibold text-cyan-400 transition-all hover:bg-cyan-500 hover:text-black"
               >
                 Live API
@@ -517,6 +492,8 @@ function Projects() {
               </a>
               <a
                 href={projects[3].github}
+                target="_blank"
+                rel="noreferrer"
                 className="flex items-center gap-2 rounded-xl border border-white/10 px-5 py-2.5 text-sm font-medium text-slate-300 transition-all hover:border-cyan-400/30 hover:text-white"
               >
                 <GitBranch size={16} />

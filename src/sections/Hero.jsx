@@ -1,15 +1,11 @@
-import avatar from "../assets/Avatar.png";
+import Image from "next/image";
 
 function Hero() {
   return (
-    // Added overflow-hidden to safely contain absolute grid/particles
-    // Maintained exact padding and responsive alignment
-    <section className="relative flex min-h-screen items-center overflow-hidden pt-32 md:pt-28 lg:pt-24">
+    <section id="home" aria-label="Introduction" className="relative flex min-h-screen items-center overflow-hidden pt-32 md:pt-28 lg:pt-24">
 
       {/* ========================================== */}
       {/* BACKGROUND: SUBTLE GRID SYSTEM             */}
-      {/* Premium, ultra-low opacity SaaS style grid */}
-      {/* Masked with a radial gradient so it fades seamlessly into the dark navy */}
       {/* ========================================== */}
       <div
         className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,#22d3ee05_1px,transparent_1px),linear-gradient(to_bottom,#22d3ee05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]"
@@ -19,12 +15,11 @@ function Hero() {
 
         {/* ========================================== */}
         {/* LEFT: CONTENT & TYPOGRAPHY                 */}
-        {/* Refined hierarchy, tighter tracking, better readability */}
         {/* ========================================== */}
         <div className="max-w-3xl text-center lg:text-left">
 
           <p className="mb-4 text-base font-semibold uppercase tracking-widest text-cyan-400/90">
-            Hi, I'm
+            Hi, I&apos;m
           </p>
 
           <h1 className="mb-6 text-5xl font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl lg:leading-[1.1]">
@@ -45,10 +40,6 @@ function Hero() {
           </p>
 
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
-            {/* BUTTON 1: Primary
-              Removed flashy scale-105. Added premium subtle Y-axis lift.
-              Added deep, soft, high-quality shadow instead of neon glow.
-            */}
             <a
               href="#projects"
               className="rounded-full bg-cyan-500 px-8 py-3.5 text-center text-sm font-semibold text-slate-950 shadow-[0_4px_14px_0_rgba(34,211,238,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-400 hover:shadow-[0_6px_20px_rgba(34,211,238,0.25)] sm:text-base"
@@ -56,10 +47,6 @@ function Hero() {
               View Projects
             </a>
 
-            {/* BUTTON 2: Secondary
-              Refined border opacity and glassmorphism.
-              Elegant hover state mapping to the primary cyan tone.
-            */}
             <a
               href="/resume.pdf"
               target="_blank"
@@ -73,14 +60,13 @@ function Hero() {
 
         {/* ========================================== */}
         {/* RIGHT: PREMIUM AVATAR ARCHITECTURE         */}
-        {/* No borders, no rings, pure depth and lighting */}
         {/* ========================================== */}
         <div className="relative flex items-center justify-center lg:-translate-x-6">
 
-          {/* 1. Ambient Lighting (Balanced Size) */}
+          {/* 1. Ambient Lighting */}
           <div className="absolute h-[280px] w-[280px] rounded-full bg-cyan-500/10 blur-[75px] lg:h-[360px] lg:w-[360px]" />
 
-          {/* 2. Geometric Blueprint Lines (Balanced Size) */}
+          {/* 2. Geometric Blueprint Lines */}
           <div className="absolute h-[320px] w-[320px] rounded-full border border-cyan-400/[0.08] lg:h-[400px] lg:w-[400px]" />
           <div className="absolute h-[360px] w-[360px] rounded-full border border-slate-600/10 border-dashed lg:h-[440px] lg:w-[440px]" />
 
@@ -95,11 +81,14 @@ function Hero() {
           {/* 4. Subtle Glass Backdrop */}
           <div className="absolute h-[300px] w-[300px] rounded-full bg-slate-900/20 backdrop-blur-md lg:h-[380px] lg:w-[380px]" />
 
-          {/* 5. Clean Image Container with Premium Soft Glow */}
+          {/* 5. Clean Image Container */}
           <div className="relative z-10 overflow-hidden rounded-full bg-[#0A0F1A] shadow-[0_0_40px_rgba(34,211,238,0.15)] transition-all duration-500 hover:shadow-[0_0_60px_rgba(34,211,238,0.25)]">
-            <img
-              src={avatar}
-              alt="Sarthak Avatar"
+            <Image
+              src="/Avatar.png"
+              alt="Sarthak Gaikwad - Full Stack MERN Developer"
+              width={380}
+              height={380}
+              priority
               className="
                 h-[300px]
                 w-[300px]

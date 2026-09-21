@@ -1,4 +1,8 @@
 @import "tailwindcss";
+
+/* =========================================== */
+/* NAVBAR SHINE ANIMATION                       */
+/* =========================================== */
 .navbar-shine {
   transition: all 2.5s ease;
 }
@@ -7,7 +11,9 @@
   left: 120%;
 }
 
-/* Custom Scrollbar for AI Chat */
+/* =========================================== */
+/* CUSTOM SCROLLBAR FOR AI CHAT                 */
+/* =========================================== */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
@@ -18,15 +24,15 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(34, 211, 238, 0.3); /* Cyan accent color (Tailwind cyan-400) with low opacity */
+  background: rgba(34, 211, 238, 0.3);
   border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(34, 211, 238, 0.6); /* Hover to bright cyan */
+  background: rgba(34, 211, 238, 0.6);
 }
 
-/* Firefox ke liye support */
+/* Firefox support */
 .custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: rgba(34, 211, 238, 0.3) transparent;

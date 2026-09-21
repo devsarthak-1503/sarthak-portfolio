@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["**/*.js", "**/*.jsx", "**/*.mjs", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

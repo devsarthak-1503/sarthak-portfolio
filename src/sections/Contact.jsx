@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import emailjs from '@emailjs/browser';
@@ -122,7 +124,7 @@ function Contact() {
 
     try {
       // ==========================================
-      // EmailJS Real Integration (Simulation replaced)
+      // EmailJS Real Integration
       // ==========================================
       await emailjs.send(
         'service_s85vs5k',     // Service ID
@@ -153,7 +155,7 @@ function Contact() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "150px" }}
           variants={containerVariants}
           className="mb-16 text-center"
         >
@@ -164,7 +166,7 @@ function Contact() {
           </motion.div>
 
           <motion.h2 variants={itemVariants} className="text-4xl font-bold text-white md:text-5xl lg:text-5xl">
-            Let's Work Together
+            Let&apos;s Work Together
           </motion.h2>
 
           <motion.p
@@ -181,7 +183,7 @@ function Contact() {
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "150px" }}
             className="flex flex-col gap-6 lg:col-span-5"
           >
             {contactDetails.map((item) => {
@@ -232,7 +234,7 @@ function Contact() {
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "150px" }}
             transition={{ duration: 0.6 }}
             className="lg:col-span-7"
           >

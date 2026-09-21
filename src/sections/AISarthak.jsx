@@ -1,8 +1,10 @@
-import aiAvatar from "../assets/ai-sarthak-avatar.png";
+"use client";
+
+import Image from "next/image";
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { askAISarthak } from "../services/groqService";
-import { speakText, stopSpeaking } from "../services/elevenLabsService";
+import { askAISarthak } from "@/services/groqService";
+import { speakText, stopSpeaking } from "@/services/elevenLabsService";
 import {
     Sparkles,
     MessageSquare,
@@ -110,58 +112,40 @@ function AISarthak() {
         { name: "Resume", icon: <FileText size={16} /> },
     ];
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-    };
-
-    const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.5, ease: "easeOut" },
-        },
-    };
-
-    // 2. INITIALIZE SPEECH RECOGNITION (FIXED FOR SINGLE-LOOP BEHAVIOR)
+    // 2. INITIALIZE SPEECH RECOGNITION (SSR-safe guard)
     useEffect(() => {
+        if (typeof window === "undefined") return;
+
         const SpeechRecognition =
             window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRecognition) {
             const recognition = new SpeechRecognition();
-            recognition.continuous = false; // Strictly false for one-question flow
+            recognition.continuous = false;
             recognition.interimResults = false;
             recognition.lang = "en-US";
 
             recognition.onstart = () => setIsListening(true);
-
             recognition.onend = () => setIsListening(false);
 
             recognition.onerror = (event) => {
                 setIsListening(false);
-                setVoiceModeEnabled(false); // Gracefully terminate session on any error
+                setVoiceModeEnabled(false);
 
-                // Handle specific errors gracefully without console spam or crashes
                 if (event.error === "not-allowed") {
-                    alert(
-                        "Microphone access denied. Please enable it in your browser settings to use Voice Mode.",
-                    );
+                    setMessages((prev) => [
+                        ...prev,
+                        {
+                            role: "ai",
+                            text: "Microphone access was denied. Please allow microphone permissions in your browser to use Voice Mode.",
+                            timestamp: new Date(),
+                        },
+                    ]);
                 } else if (event.error === "no-speech") {
                     setMessages((prev) => [
                         ...prev,
                         {
                             role: "ai",
-                            text: "I didn't catch that. Please try clicking the microphone again.",
-                            timestamp: new Date(),
-                        },
-                    ]);
-                } else if (event.error === "network") {
-                    setMessages((prev) => [
-                        ...prev,
-                        {
-                            role: "ai",
-                            text: "A network error occurred with speech recognition. Please try typing your question.",
+                            text: "I didn't catch that. Please click the microphone button and speak clearly.",
                             timestamp: new Date(),
                         },
                     ]);
@@ -169,9 +153,8 @@ function AISarthak() {
             };
 
             recognition.onresult = (event) => {
-                const transcript = event.results[0][0].transcript;
-                if (transcript.trim()) {
-                    // Immediately process the spoken question
+                const transcript = event.results?.[0]?.[0]?.transcript;
+                if (transcript && transcript.trim()) {
                     handleAskAI(transcript);
                 } else {
                     setVoiceModeEnabled(false);
@@ -181,13 +164,12 @@ function AISarthak() {
             recognitionRef.current = recognition;
         }
 
-        // Cleanup on unmount
         return () => {
             if (recognitionRef.current) {
                 try {
                     recognitionRef.current.stop();
-                } catch (e) {
-                    /* ignore */
+                } catch {
+                    // Ignore on unmount
                 }
             }
             stopSpeaking();
@@ -198,30 +180,33 @@ function AISarthak() {
     // 3. TOGGLE VOICE MODE (START/STOP)
     const toggleVoiceMode = () => {
         if (!recognitionRef.current) {
-            alert(
-                "Voice recognition is not supported in your browser. Please type your question.",
-            );
+            setMessages((prev) => [
+                ...prev,
+                {
+                    role: "ai",
+                    text: "Voice recognition is not supported in this browser. You can type any question directly in the chat box!",
+                    timestamp: new Date(),
+                },
+            ]);
             return;
         }
 
         if (voiceModeEnabled) {
-            // User manually disabled Voice Mode mid-session
             setVoiceModeEnabled(false);
             setIsListening(false);
             setIsSpeaking(false);
             try {
                 recognitionRef.current.stop();
-            } catch (e) {
-                /* ignore */
+            } catch {
+                // Ignore
             }
             stopSpeaking();
         } else {
-            // User starts new Voice Mode session
             setVoiceModeEnabled(true);
             try {
                 recognitionRef.current.start();
-            } catch (e) {
-                // Ignore if already started
+            } catch {
+                // Ignore if already active
             }
         }
     };
@@ -244,19 +229,18 @@ function AISarthak() {
         scrollToBottom();
     }, [messages.length, isLoading, scrollToBottom]);
 
-    // 5. AI SUBMISSION LOGIC
+    // 5. AI SUBMISSION LOGIC (100% resilient, never throws)
     const handleAskAI = async (questionText = null) => {
         const textToSend =
             typeof questionText === "string" ? questionText : inputValue;
 
         if (!textToSend.trim() || isLoading) return;
 
-        // If typing while voice mode is actively listening, force stop listening
         if (isListening && recognitionRef.current) {
             try {
                 recognitionRef.current.stop();
-            } catch (e) {
-                /* ignore */
+            } catch {
+                // Ignore
             }
         }
 
@@ -279,23 +263,27 @@ function AISarthak() {
                 { role: "ai", text: response.answer, timestamp: new Date() },
             ]);
 
-            // Trigger ElevenLabs Speech if Voice Mode is active
+            // Trigger ElevenLabs Speech if Voice Mode was enabled
             if (voiceModeEnabledRef.current) {
-                setIsSpeaking(true);
-                let cleanText = response.answer.replace(/[*_#]/g, "");
-                cleanText = cleanText.replace(
-                    /```[\s\S]*?```/g,
-                    "Code block omitted for audio.",
-                );
+                try {
+                    setIsSpeaking(true);
+                    let cleanText = (response.answer || "").replace(/[*_#]/g, "");
+                    cleanText = cleanText.replace(
+                        /```[\s\S]*?```/g,
+                        "Code block omitted for audio."
+                    );
 
-                await speakText(cleanText);
-
-                setIsSpeaking(false);
-                setVoiceModeEnabled(false); // ENDS THE VOICE SESSION AFTER ONE COMPLETE LOOP
+                    await speakText(cleanText);
+                } catch {
+                    // Non-blocking: text is already shown in the chat window
+                } finally {
+                    setIsSpeaking(false);
+                    setVoiceModeEnabled(false);
+                }
             }
-        } catch (error) {
+        } catch {
             const errorText =
-                "An unexpected system error occurred. Please try again later.";
+                "I'm temporarily unable to process that request. Please feel free to ask another question or contact Sarthak directly via email or LinkedIn!";
             setMessages((prev) => [
                 ...prev,
                 {
@@ -305,15 +293,10 @@ function AISarthak() {
                 },
             ]);
 
-            if (voiceModeEnabledRef.current) {
-                setIsSpeaking(true);
-                await speakText(errorText);
-                setIsSpeaking(false);
-                setVoiceModeEnabled(false);
-            }
+            setIsSpeaking(false);
+            setVoiceModeEnabled(false);
         } finally {
             setIsLoading(false);
-            // Auto-focus input after AI responds (if not in voice mode)
             if (!voiceModeEnabledRef.current) {
                 setTimeout(() => inputRef.current?.focus(), 100);
             }
@@ -327,7 +310,6 @@ function AISarthak() {
         }
     };
 
-    // Dynamic Button Text Logic
     const getVoiceButtonText = () => {
         if (voiceModeEnabled) {
             if (isSpeaking) return "Speaking...";
@@ -341,6 +323,7 @@ function AISarthak() {
     return (
         <section
             id="ai-sarthak"
+            aria-label="AI Sarthak Assistant"
             className="relative overflow-hidden py-20 bg-[#050A15]"
         >
             <div className="absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/5 blur-[180px] pointer-events-none" />
@@ -348,10 +331,10 @@ function AISarthak() {
             <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 {/* Hero Section */}
                 <motion.div
-                    initial={{ opacity: 0, y: 40 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
+                    viewport={{ once: true, margin: "150px" }}
+                    transition={{ duration: 0.5 }}
                     className="mb-12 text-center"
                 >
                     <div className="mb-3 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[6px] text-cyan-400">
@@ -378,10 +361,10 @@ function AISarthak() {
                 <div className="mb-16 grid gap-8 lg:grid-cols-12 items-start">
                     {/* AI Avatar Card */}
                     <motion.div
-                        initial={{ opacity: 0, x: -40 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "150px" }}
+                        transition={{ duration: 0.5 }}
                         className="lg:col-span-4 flex flex-col lg:sticky lg:top-24"
                     >
                         <div className="group relative flex w-full flex-col items-center justify-center rounded-[32px] border border-cyan-400/10 bg-white/5 p-6 sm:p-8 lg:p-10 text-center backdrop-blur-xl transition-all duration-500 hover:scale-[1.02] sm:hover:scale-[1.03] hover:border-cyan-400/30 hover:shadow-[0_0_40px_rgba(34,211,238,0.15)] z-10">
@@ -411,10 +394,12 @@ function AISarthak() {
                                 />
 
                                 <div className="absolute inset-0 overflow-hidden rounded-full">
-                                    <img
-                                        src={aiAvatar}
-                                        alt="AI Sarthak"
-                                        className="h-full w-full object-cover object-center"
+                                    <Image
+                                        src="/ai-sarthak-avatar.png"
+                                        alt="AI Sarthak Avatar"
+                                        fill
+                                        className="object-cover object-center"
+                                        sizes="(max-width: 640px) 128px, 160px"
                                     />
                                 </div>
 
@@ -495,6 +480,7 @@ function AISarthak() {
 
                             <button
                                 onClick={toggleVoiceMode}
+                                aria-label="Toggle voice mode"
                                 className={`flex w-full items-center justify-center gap-2 rounded-xl border px-4 sm:px-6 py-3 sm:py-3.5 text-xs sm:text-sm font-semibold transition-all duration-300 ${voiceModeEnabled
                                     ? "border-cyan-400 bg-cyan-400/10 text-cyan-300 shadow-[0_0_20px_rgba(34,211,238,0.2)]"
                                     : "border-cyan-400/20 bg-white/5 text-slate-300 hover:border-cyan-400/40 hover:bg-white/10 hover:text-white"
@@ -519,14 +505,13 @@ function AISarthak() {
 
                     {/* AI Chat Interface */}
                     <motion.div
-                        variants={containerVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        className="lg:col-span-8"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "150px" }}
+                        transition={{ duration: 0.5 }}
+                        className="lg:col-span-8 w-full"
                     >
-                        <motion.div
-                            variants={itemVariants}
+                        <div
                             className="flex h-[600px] w-full flex-col overflow-hidden rounded-[32px] border border-cyan-400/10 bg-white/5 backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/30 hover:shadow-[0_0_40px_rgba(34,211,238,0.15)]"
                         >
                             {/* Chat Top Bar */}
@@ -582,7 +567,7 @@ function AISarthak() {
                                             {idx === 0 && msg.role === "ai" ? (
                                                 <>
                                                     <p className="mb-2 sm:mb-3 font-medium text-white text-[14px] sm:text-[15px]">
-                                                        Hello, I'm AI Sarthak.
+                                                        Hello, I&apos;m AI Sarthak.
                                                     </p>
                                                     <p className="mb-3 sm:mb-4 leading-relaxed text-slate-300 text-xs sm:text-sm">
                                                         I can explain projects, technical decisions, backend
@@ -696,6 +681,7 @@ function AISarthak() {
                                     />
                                     <button
                                         onClick={toggleVoiceMode}
+                                        aria-label="Toggle voice mode"
                                         className={`flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl transition-colors ${voiceModeEnabled
                                             ? "bg-cyan-400/10 text-cyan-400"
                                             : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
@@ -713,28 +699,26 @@ function AISarthak() {
                                     <button
                                         onClick={() => handleAskAI()}
                                         disabled={isLoading || !inputValue.trim()}
+                                        aria-label="Send message"
                                         className="flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-500 text-black transition-all hover:bg-cyan-400 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 disabled:hover:shadow-none"
                                     >
                                         <Send size={16} className="ml-0.5 sm:scale-110" />
                                     </button>
                                 </div>
                             </div>
-                        </motion.div>
+                        </div>
                     </motion.div>
                 </div>
 
                 {/* AI Capabilities Cards */}
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className="mb-16 grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"
-                >
+                <div className="mb-16 grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     {whyUseCards.map((item) => (
                         <motion.div
                             key={item.title}
-                            variants={itemVariants}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "150px" }}
+                            transition={{ duration: 0.5 }}
                             className="group rounded-[24px] border border-cyan-400/10 bg-white/5 p-5 sm:p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-cyan-400/30 hover:shadow-[0_0_30px_rgba(34,211,238,0.15)]"
                         >
                             <div className="mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-cyan-400/10 text-cyan-400 transition-colors duration-300 group-hover:bg-cyan-500 group-hover:text-black">
@@ -748,15 +732,15 @@ function AISarthak() {
                             </p>
                         </motion.div>
                     ))}
-                </motion.div>
+                </div>
 
                 {/* AI Knowledge Base */}
                 <div className="mb-16">
                     <motion.div
-                        initial={{ opacity: 0, y: 40 }}
+                        initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true, margin: "150px" }}
+                        transition={{ duration: 0.5 }}
                         className="rounded-[32px] border border-cyan-400/10 bg-white/5 p-6 sm:p-8 lg:p-10 backdrop-blur-xl"
                     >
                         <h3 className="mb-6 text-xl sm:text-2xl font-bold text-white text-center">
@@ -778,10 +762,10 @@ function AISarthak() {
 
                 {/* Final CTA */}
                 <motion.div
-                    initial={{ opacity: 0, y: 40 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
+                    viewport={{ once: true, margin: "150px" }}
+                    transition={{ duration: 0.5 }}
                     className="rounded-[32px] border border-cyan-400/10 bg-white/5 p-6 sm:p-8 lg:p-12 text-center backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/30 hover:shadow-[0_0_40px_rgba(34,211,238,0.15)]"
                 >
                     <div className="mx-auto max-w-2xl">

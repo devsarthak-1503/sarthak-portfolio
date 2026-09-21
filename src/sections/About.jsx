@@ -36,6 +36,7 @@ function About() {
   return (
     <section
       id="about"
+      aria-label="About Sarthak Gaikwad"
       className="relative overflow-hidden py-32"
     >
       {/* Background Glow */}
@@ -50,7 +51,7 @@ function About() {
           </p>
 
           <h2 className="text-4xl font-bold text-white md:text-5xl lg:text-6xl">
-            Building Modern Web & AI Solutions
+            Building Modern Web &amp; AI Solutions
           </h2>
         </div>
 
@@ -67,7 +68,7 @@ function About() {
             </h3>
 
             <p className="mb-6 text-lg leading-relaxed text-slate-400">
-              I'm Sarthak Gaikwad, a Full Stack MERN Developer focused on
+              I&apos;m Sarthak Gaikwad, a Full Stack MERN Developer focused on
               building scalable web applications, modern user experiences,
               and AI-powered digital solutions.
             </p>

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
@@ -72,7 +74,7 @@ function Footer() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "150px" }}
           className="grid gap-12 pb-12 md:grid-cols-2 lg:grid-cols-4"
         >
           {/* Brand Info */}
@@ -133,7 +135,7 @@ function Footer() {
           variants={itemVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "150px" }}
           className="flex flex-col items-center justify-between gap-4 border-t border-cyan-400/10 pt-8 sm:flex-row"
         >
           <p className="text-sm text-slate-500">
