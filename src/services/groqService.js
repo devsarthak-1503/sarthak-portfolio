@@ -1,14 +1,13 @@
 import Groq from "groq-sdk";
 import { portfolioContext } from "@/data/portfolioContext";
 
-// Support both Next.js (NEXT_PUBLIC_) and legacy Vite (VITE_) env vars
 const rawApiKey =
   (typeof process !== "undefined" && process.env.NEXT_PUBLIC_GROQ_API_KEY) ||
+  (typeof process !== "undefined" && process.env.GROQ_API_KEY) ||
   (typeof process !== "undefined" && process.env.VITE_GROQ_API_KEY) ||
   "";
 
 const apiKey = rawApiKey.trim();
-
 let groqInstance = null;
 
 function getGroqClient() {
@@ -31,6 +30,33 @@ export const askAISarthak = async (
     userQuestion,
     chatHistory = []
 ) => {
+    // 1. Primary Strategy: Call Next.js Server Route /api/chat
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          question: userQuestion,
+          history: chatHistory,
+        }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data?.answer) {
+          return {
+            success: data.success !== false,
+            answer: data.answer,
+          };
+        }
+      }
+    } catch (err) {
+      console.warn("Server route /api/chat fallback to client SDK:", err?.message || err);
+    }
+
+    // 2. Secondary Strategy: Direct client SDK fallback
     const groq = getGroqClient();
 
     if (!groq) {
@@ -43,20 +69,17 @@ export const askAISarthak = async (
 
     try {
         const systemPrompt = `
-You are AI Sarthak, a professional AI portfolio assistant representing Sarthak Gaikwad.
+You are AI Sarthak, the executive AI assistant representing Sarthak Gaikwad (Full Stack MERN Developer & AI Engineer).
 
-IMPORTANT RULES:
+MANDATORY RULES FOR "SMART, CONCISE & POWERFUL" RESPONSES:
+1. STRICT BREVITY LIMIT: Keep answers under 60-95 words total (2 short, punchy paragraphs OR 3-4 structured bullet points). NEVER output long essays or walls of text.
+2. ZERO FILLER: Start immediately with the core answer. Never use filler greetings like "Certainly!", "Sure!", "Hello!", "I would be happy to explain", or closing pleasantries.
+3. HIGH TECHNICAL DENSITY: Highlight specific technologies and architecture (**React**, **Next.js 15**, **Node.js**, **Express**, **MongoDB**, **Groq AI**, **Socket.io**, **Cloudflare Turnstile**).
+4. SCAN-FRIENDLY MARKDOWN: Use **bold keywords** for key technologies and architecture patterns so recruiters can scan in 5 seconds.
+5. PROFESSIONAL & CONFIDENT: Answers must sound sharp, executive, and recruiter-ready.
+6. GROUND TRUTH: Base all answers strictly on verified context. If an answer is unknown, say: "I don't have verified details on that topic." in one sentence.
 
-* Always answer in professional English.
-* Represent Sarthak professionally.
-* Use ONLY the information available in the portfolio context.
-* Never invent information.
-* Never guess personal information.
-* Keep responses concise and recruiter friendly.
-* Highlight technical strengths when relevant.
-
-PORTFOLIO KNOWLEDGE BASE:
-
+VERIFIED CONTEXT:
 ${portfolioContext}
 `;
 
@@ -68,7 +91,7 @@ ${portfolioContext}
         ];
 
         const formattedHistory = chatHistory
-          .slice(-10)
+          .slice(-6)
           .filter((msg) => msg.text && msg.role)
           .map((msg) => ({
             role: msg.role === "ai" ? "assistant" : "user",
@@ -85,8 +108,8 @@ ${portfolioContext}
         const completion = await groq.chat.completions.create({
           model: "qwen/qwen3.8-27b",
           messages,
-          temperature: 0.4,
-          max_tokens: 700,
+          temperature: 0.3,
+          max_tokens: 250,
         });
 
         const answer = completion?.choices?.[0]?.message?.content;

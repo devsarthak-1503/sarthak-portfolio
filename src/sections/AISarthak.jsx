@@ -37,6 +37,47 @@ const formatTime = (date) => {
     }).format(date);
 };
 
+// High-Signal Markdown Formatter for AI Sarthak Answers
+function FormattedMessage({ text }) {
+    if (!text) return null;
+    const lines = text.split("\n");
+
+    return (
+        <div className="space-y-1.5 leading-relaxed text-xs sm:text-sm text-slate-300">
+            {lines.map((line, lineIdx) => {
+                const trimmed = line.trim();
+                if (!trimmed) return <div key={lineIdx} className="h-1" />;
+
+                const isBullet = trimmed.startsWith("* ") || trimmed.startsWith("- ");
+                const content = isBullet ? trimmed.slice(2) : line;
+
+                const parts = content.split(/(\*\*.*?\*\*)/g);
+                const rendered = parts.map((part, partIdx) => {
+                    if (part.startsWith("**") && part.endsWith("**")) {
+                        return (
+                            <strong key={partIdx} className="font-semibold text-white">
+                                {part.slice(2, -2)}
+                            </strong>
+                        );
+                    }
+                    return part;
+                });
+
+                if (isBullet) {
+                    return (
+                        <div key={lineIdx} className="flex items-start gap-2 ml-1">
+                            <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 mt-1.5 shrink-0 shadow-[0_0_6px_#22d3ee]" />
+                            <div className="flex-1">{rendered}</div>
+                        </div>
+                    );
+                }
+
+                return <p key={lineIdx}>{rendered}</p>;
+            })}
+        </div>
+    );
+}
+
 function AISarthak() {
     // Voice Mode States
     const [voiceModeEnabled, setVoiceModeEnabled] = useState(false);
@@ -63,20 +104,20 @@ function AISarthak() {
     const [messages, setMessages] = useState([
         {
             role: "ai",
-            text: "Hello, I'm AI Sarthak.\n\nI can explain projects, technical decisions, backend architecture, AI integrations, career journey and professional experience.\n\nTry asking a recruiter-style question below.",
+            text: "Hello, I'm AI Sarthak. I provide sharp, recruiter-ready insights into Sarthak's full-stack architecture, projects, enterprise work at Bynaric Systems, and technical skills.\n\nAsk a technical or interview question below.",
             timestamp: new Date(),
         },
     ]);
 
     const suggestedQuestions = [
         "Tell me about yourself",
-        "Why should we hire you?",
         "Explain Farmer One Stop Solution",
+        "What are your core strengths?",
+        "What work do you do at Bynaric Systems?",
         "How was Moody Player built?",
-        "Describe your backend expertise",
-        "What AI integrations have you implemented?",
-        "Explain your MERN experience",
-        "What makes you different?",
+        "Explain On-Screen Evaluation platform",
+        "What AI integrations have you built?",
+        "Why should we hire you?",
     ];
 
     const whyUseCards = [
@@ -324,7 +365,7 @@ function AISarthak() {
         <section
             id="ai-sarthak"
             aria-label="AI Sarthak Assistant"
-            className="relative overflow-hidden py-20 bg-[#050A15]"
+            className="relative overflow-hidden py-20 bg-[#050A15] scroll-mt-24"
         >
             <div className="absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/5 blur-[180px] pointer-events-none" />
 
@@ -367,7 +408,7 @@ function AISarthak() {
                         transition={{ duration: 0.5 }}
                         className="lg:col-span-4 flex flex-col lg:sticky lg:top-24"
                     >
-                        <div className="group relative flex w-full flex-col items-center justify-center rounded-[32px] border border-cyan-400/10 bg-white/5 p-6 sm:p-8 lg:p-10 text-center backdrop-blur-xl transition-all duration-500 hover:scale-[1.02] sm:hover:scale-[1.03] hover:border-cyan-400/30 hover:shadow-[0_0_40px_rgba(34,211,238,0.15)] z-10">
+                        <div className="group relative flex w-full flex-col items-center justify-center rounded-[32px] border border-cyan-400/15 bg-[#061020]/80 p-6 sm:p-8 lg:p-10 text-center backdrop-blur-xl transition-all duration-500 hover:scale-[1.02] sm:hover:scale-[1.03] hover:border-cyan-400/40 hover:shadow-[0_0_40px_rgba(34,211,238,0.18)] z-10">
                             <motion.div
                                 animate={{ y: [-4, 4, -4] }}
                                 transition={{
@@ -512,7 +553,7 @@ function AISarthak() {
                         className="lg:col-span-8 w-full"
                     >
                         <div
-                            className="flex h-[600px] w-full flex-col overflow-hidden rounded-[32px] border border-cyan-400/10 bg-white/5 backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/30 hover:shadow-[0_0_40px_rgba(34,211,238,0.15)]"
+                            className="flex h-[600px] w-full flex-col overflow-hidden rounded-[32px] border border-cyan-400/15 bg-[#061020]/80 backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/40 hover:shadow-[0_0_40px_rgba(34,211,238,0.18)]"
                         >
                             {/* Chat Top Bar */}
                             <div className="shrink-0 flex items-center justify-between border-b border-cyan-400/10 bg-black/20 px-4 sm:px-8 py-4 sm:py-5">
@@ -566,22 +607,20 @@ function AISarthak() {
                                         >
                                             {idx === 0 && msg.role === "ai" ? (
                                                 <>
-                                                    <p className="mb-2 sm:mb-3 font-medium text-white text-[14px] sm:text-[15px]">
+                                                    <p className="mb-2 font-medium text-white text-[14px] sm:text-[15px]">
                                                         Hello, I&apos;m AI Sarthak.
                                                     </p>
-                                                    <p className="mb-3 sm:mb-4 leading-relaxed text-slate-300 text-xs sm:text-sm">
-                                                        I can explain projects, technical decisions, backend
-                                                        architecture, AI integrations, career journey and
-                                                        professional experience.
+                                                    <p className="mb-2 text-slate-300 text-xs sm:text-sm leading-relaxed">
+                                                        I provide sharp, recruiter-ready insights into Sarthak&apos;s full-stack architecture, projects, enterprise work at Bynaric Systems, and technical skills.
                                                     </p>
                                                     <p className="text-xs sm:text-sm font-medium text-cyan-400">
-                                                        Try asking a recruiter-style question below.
+                                                        Ask a technical or interview question below.
                                                     </p>
                                                 </>
+                                            ) : msg.role === "ai" ? (
+                                                <FormattedMessage text={msg.text} />
                                             ) : (
-                                                <p
-                                                    className={`leading-relaxed text-xs sm:text-sm whitespace-pre-wrap ${msg.role === "ai" ? "text-slate-300" : "text-cyan-50"}`}
-                                                >
+                                                <p className="leading-relaxed text-xs sm:text-sm text-cyan-50 whitespace-pre-wrap">
                                                     {msg.text}
                                                 </p>
                                             )}
@@ -719,7 +758,7 @@ function AISarthak() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "150px" }}
                             transition={{ duration: 0.5 }}
-                            className="group rounded-[24px] border border-cyan-400/10 bg-white/5 p-5 sm:p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-cyan-400/30 hover:shadow-[0_0_30px_rgba(34,211,238,0.15)]"
+                            className="group rounded-[24px] border border-cyan-400/15 bg-[#061020]/80 p-5 sm:p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-cyan-400/40 hover:shadow-[0_0_30px_rgba(34,211,238,0.18)]"
                         >
                             <div className="mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-cyan-400/10 text-cyan-400 transition-colors duration-300 group-hover:bg-cyan-500 group-hover:text-black">
                                 {item.icon}
@@ -741,7 +780,7 @@ function AISarthak() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "150px" }}
                         transition={{ duration: 0.5 }}
-                        className="rounded-[32px] border border-cyan-400/10 bg-white/5 p-6 sm:p-8 lg:p-10 backdrop-blur-xl"
+                        className="rounded-[32px] border border-cyan-400/15 bg-[#061020]/80 p-6 sm:p-8 lg:p-10 backdrop-blur-xl shadow-[0_0_30px_rgba(0,0,0,0.3)]"
                     >
                         <h3 className="mb-6 text-xl sm:text-2xl font-bold text-white text-center">
                             What AI Sarthak Knows

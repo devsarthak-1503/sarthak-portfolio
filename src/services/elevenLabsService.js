@@ -7,6 +7,7 @@
 // Support both Next.js (NEXT_PUBLIC_) and legacy Vite (VITE_) env vars
 const rawApiKey =
   (typeof process !== "undefined" && process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY) ||
+  (typeof process !== "undefined" && process.env.ELEVENLABS_API_KEY) ||
   (typeof process !== "undefined" && process.env.VITE_ELEVENLABS_API_KEY) ||
   "";
 
