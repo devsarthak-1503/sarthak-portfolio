@@ -18,7 +18,8 @@ Location:
 India
 
 Education:
-Bachelor of Engineering in Computer Engineering
+Bachelor of Computer Engineering
+SND College of Engineering and Research Center, Babulgaon Yeola
 Savitribai Phule Pune University (SPPU)
 
 Profile Updated:
@@ -63,19 +64,23 @@ independently confirmed.
 ==================================================
 
 Company:
-Bynaric Systems Pvt Ltd
+Bynaric Systems Pvt. Ltd. (Pune Division, Maharashtra, India)
 
-Employment Status:
-Working full-time as of October 2026.
+Current Designation:
+Software Developer (Full-time, On-site)
+Period: October 2026 - Present
+Work Scope: Developing, scaling, and enhancing web applications at Bynaric Systems Pvt. Ltd.
 
 Previous Internship:
-Completed a three-month internship at Bynaric Systems Pvt Ltd
-from 7 July 2026 to 7 October 2026, followed by full-time
-employment at the same company.
-
-Official Job Designation:
-Not confirmed in the available information. Do not invent
-an official title or an exact full-time joining date.
+Software Developer Trainee (Internship, Remote)
+Period: July 2026 - October 2026 (4 mos)
+Key Contributions:
+- Contributed to full-stack institutional inventory management system.
+- Developed responsive user interfaces using Next.js, React.js, TypeScript, and Tailwind CSS.
+- Engineered backend API integrations and workflows using Node.js, Express.js, and REST APIs.
+- Managed database operations using PostgreSQL and Sequelize.
+- Implemented modules: CDSR Write-Off, Sales Master, Equipment Allocation, and Existing Stock Verification.
+- Performed testing, debugging, code reviews, and reliability improvements.
 
 Professional Work Areas:
 

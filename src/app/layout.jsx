@@ -1,4 +1,5 @@
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
 const siteUrl = "https://sarthak-portfolio-virid.vercel.app";
 
@@ -174,6 +175,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className="antialiased bg-[#050816] text-white selection:bg-cyan-500/30 selection:text-cyan-300">
         {children}
+        <Analytics />
       </body>
     </html>
   );

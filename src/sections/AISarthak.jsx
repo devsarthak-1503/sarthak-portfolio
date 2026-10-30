@@ -365,7 +365,7 @@ function AISarthak() {
         <section
             id="ai-sarthak"
             aria-label="AI Sarthak Assistant"
-            className="relative overflow-hidden py-20 bg-[#050A15] scroll-mt-24"
+            className="relative overflow-hidden py-32 scroll-mt-24"
         >
             <div className="absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/5 blur-[180px] pointer-events-none" />
 
@@ -378,7 +378,7 @@ function AISarthak() {
                     transition={{ duration: 0.5 }}
                     className="mb-12 text-center"
                 >
-                    <div className="mb-3 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[6px] text-cyan-400">
+                    <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-[11px] font-mono uppercase tracking-[0.25em] text-cyan-300">
                         <Sparkles size={16} />
                         <span>AI ASSISTANT</span>
                         <Sparkles size={16} />
@@ -408,7 +408,7 @@ function AISarthak() {
                         transition={{ duration: 0.5 }}
                         className="lg:col-span-4 flex flex-col lg:sticky lg:top-24"
                     >
-                        <div className="group relative flex w-full flex-col items-center justify-center rounded-[32px] border border-cyan-400/15 bg-[#061020]/80 p-6 sm:p-8 lg:p-10 text-center backdrop-blur-xl transition-all duration-500 hover:scale-[1.02] sm:hover:scale-[1.03] hover:border-cyan-400/40 hover:shadow-[0_0_40px_rgba(34,211,238,0.18)] z-10">
+                        <div className="group relative flex w-full flex-col items-center justify-center rounded-[28px] border border-white/[0.08] bg-[#070b14]/75 p-6 sm:p-8 text-center backdrop-blur-2xl transition-all duration-500 hover:border-cyan-400/35 hover:shadow-[0_0_35px_rgba(34,211,238,0.12)] z-10">
                             <motion.div
                                 animate={{ y: [-4, 4, -4] }}
                                 transition={{
@@ -553,7 +553,7 @@ function AISarthak() {
                         className="lg:col-span-8 w-full"
                     >
                         <div
-                            className="flex h-[600px] w-full flex-col overflow-hidden rounded-[32px] border border-cyan-400/15 bg-[#061020]/80 backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/40 hover:shadow-[0_0_40px_rgba(34,211,238,0.18)]"
+                            className="flex h-[600px] w-full flex-col overflow-hidden rounded-[28px] border border-white/[0.08] bg-[#070b14]/75 backdrop-blur-2xl transition-all duration-500 hover:border-cyan-400/35 hover:shadow-[0_0_35px_rgba(34,211,238,0.12)]"
                         >
                             {/* Chat Top Bar */}
                             <div className="shrink-0 flex items-center justify-between border-b border-cyan-400/10 bg-black/20 px-4 sm:px-8 py-4 sm:py-5">
@@ -758,7 +758,7 @@ function AISarthak() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "150px" }}
                             transition={{ duration: 0.5 }}
-                            className="group rounded-[24px] border border-cyan-400/15 bg-[#061020]/80 p-5 sm:p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-cyan-400/40 hover:shadow-[0_0_30px_rgba(34,211,238,0.18)]"
+                            className="group rounded-2xl border border-white/[0.08] bg-[#070b14]/75 p-5 sm:p-6 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/35"
                         >
                             <div className="mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-cyan-400/10 text-cyan-400 transition-colors duration-300 group-hover:bg-cyan-500 group-hover:text-black">
                                 {item.icon}
@@ -780,7 +780,7 @@ function AISarthak() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "150px" }}
                         transition={{ duration: 0.5 }}
-                        className="rounded-[32px] border border-cyan-400/15 bg-[#061020]/80 p-6 sm:p-8 lg:p-10 backdrop-blur-xl shadow-[0_0_30px_rgba(0,0,0,0.3)]"
+                        className="rounded-[28px] border border-white/[0.08] bg-[#070b14]/75 p-6 sm:p-8 backdrop-blur-2xl shadow-[0_0_30px_rgba(0,0,0,0.4)]"
                     >
                         <h3 className="mb-6 text-xl sm:text-2xl font-bold text-white text-center">
                             What AI Sarthak Knows
@@ -805,7 +805,7 @@ function AISarthak() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "150px" }}
                     transition={{ duration: 0.5 }}
-                    className="rounded-[32px] border border-cyan-400/10 bg-white/5 p-6 sm:p-8 lg:p-12 text-center backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/30 hover:shadow-[0_0_40px_rgba(34,211,238,0.15)]"
+                    className="rounded-[28px] border border-white/[0.08] bg-[#070b14]/75 p-6 sm:p-8 lg:p-12 text-center backdrop-blur-2xl transition-all duration-500 hover:border-cyan-400/30"
                 >
                     <div className="mx-auto max-w-2xl">
                         <h3 className="mb-6 sm:mb-8 text-2xl sm:text-3xl font-bold text-white md:text-4xl">
@@ -815,7 +815,7 @@ function AISarthak() {
                         <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 lg:gap-6">
                             <a
                                 href="#projects"
-                                className="flex w-full sm:w-auto justify-center items-center gap-2 rounded-full bg-cyan-500 px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-semibold text-black transition-all hover:scale-105 hover:bg-cyan-400 hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]"
+                                className="flex w-full sm:w-auto justify-center items-center gap-2 rounded-xl bg-white px-6 py-3 text-xs sm:text-sm font-semibold text-zinc-950 transition-all hover:bg-cyan-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)]"
                             >
                                 View Projects
                                 <ArrowRight size={18} strokeWidth={2.5} />

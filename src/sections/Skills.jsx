@@ -17,74 +17,74 @@ function Skills() {
   const skillCategories = [
     {
       title: "Frontend Engineering",
-      subtitle: "Dynamic, Responsive & Accessible Interfaces",
+      subtitle: "Dynamic, responsive & accessible digital interfaces",
       icon: Code2,
       skills: [
-        "React",
+        "React.js",
         "Next.js 15",
+        "TypeScript",
         "JavaScript (ES6+)",
-        "Redux Toolkit",
         "Tailwind CSS",
-        "HTML5",
-        "CSS3 / SCSS",
+        "Redux Toolkit",
         "Framer Motion",
+        "HTML5 / CSS3",
       ],
     },
     {
       title: "Backend & Systems",
-      subtitle: "Secure REST APIs, Microservices & Real-Time Events",
+      subtitle: "Scalable REST APIs, microservices & real-time events",
       icon: Server,
       skills: [
         "Node.js",
         "Express.js",
         "RESTful APIs",
         "Socket.io",
-        "JWT Auth",
+        "JWT Authentication",
         "RBAC Security",
-        "Sequelize",
-        "MVC Pattern",
+        "Sequelize ORM",
+        "MVC Architecture",
       ],
     },
     {
       title: "Database & Storage",
-      subtitle: "Schemas, Indexing & Aggregation Pipelines",
+      subtitle: "Schema design, relational indexing & aggregation",
       icon: Database,
       skills: [
+        "PostgreSQL",
         "MongoDB",
         "Mongoose ODM",
-        "Aggregation Pipeline",
-        "PostgreSQL",
-        "MongoDB Atlas",
+        "Aggregation Pipelines",
+        "Database Indexing",
         "Data Modeling",
       ],
     },
     {
       title: "AI & Intelligent Integrations",
-      subtitle: "Modern LLMs, Emotion Detection & Audio Synthesis",
+      subtitle: "Modern LLMs, emotion inference & audio synthesis",
       icon: Brain,
       skills: [
         "Groq AI (LLaMA)",
         "OpenAI API",
-        "Face-api.js",
         "ElevenLabs Voice API",
-        "AI Chatbot Architecture",
+        "Face-api.js",
         "Prompt Engineering",
+        "AI Agent Workflows",
       ],
     },
     {
-      title: "DevOps, Tools & Cloud Deployment",
-      subtitle: "CI/CD, Monitoring, Version Control & Environments",
+      title: "DevOps, Tooling & Cloud Platforms",
+      subtitle: "CI/CD pipelines, version control, edge deployments & monitoring",
       icon: Wrench,
       skills: [
         "Git & GitHub",
+        "Vercel Edge",
         "Postman",
         "VS Code",
-        "Vercel",
         "Render",
         "Netlify",
         "ImageKit CDN",
         "npm / npx",
-        "ESLint & Next Config",
+        "ESLint & TypeScript Config",
       ],
       fullWidth: true,
     },
@@ -93,96 +93,92 @@ function Skills() {
   return (
     <section
       id="skills"
-      aria-label="Technical Skills and Expertise"
+      aria-label="Technical Skills and Capabilities"
       className="relative overflow-hidden py-32 scroll-mt-24"
     >
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-
         {/* Section Heading */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "100px" }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.55 }}
           className="mb-20 text-center"
         >
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[6px] text-cyan-400">
-            <Cpu size={14} />
-            <span>TECH STACK &amp; EXPERTISE</span>
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-[11px] font-mono uppercase tracking-[0.25em] text-cyan-300">
+            <Cpu size={13} className="text-cyan-400" />
+            <span>TECHNICAL CAPABILITIES</span>
           </div>
 
-          <h2 className="text-4xl font-bold text-white md:text-5xl lg:text-6xl">
-            Skills Powered By Industry Standards
+          <h2 className="text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl">
+            Skills &amp; Architecture Toolbelt
           </h2>
 
-          <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-slate-400">
-            A battle-tested full stack &amp; AI toolbelt designed to build, scale, and deliver resilient digital products.
+          <p className="mx-auto mt-5 max-w-2xl text-base sm:text-lg leading-relaxed text-zinc-400">
+            A curated, production-proven stack engineered for high concurrency, rock-solid security, and scalable software delivery.
           </p>
         </motion.div>
 
         {/* Cards Grid */}
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2">
           {skillCategories.map((category, idx) => {
             const Icon = category.icon;
 
             return (
               <SpotlightCard
                 key={category.title}
-                initialY={30 + idx * 10}
-                className={`p-8 lg:p-10 ${category.fullWidth ? "md:col-span-2" : ""}`}
+                initialY={25 + idx * 10}
+                className={`p-8 lg:p-10 border-white/[0.08] bg-[#070b14]/75 backdrop-blur-2xl transition-all duration-500 hover:border-cyan-400/30 ${
+                  category.fullWidth ? "md:col-span-2" : ""
+                }`}
               >
                 <div className="flex flex-col h-full justify-between">
                   {/* Category Header */}
                   <div className="mb-6 flex items-start justify-between">
                     <div className="flex items-center gap-4">
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/20 bg-cyan-400/10 text-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.15)]">
-                        <Icon size={24} />
+                      {/* LIGHT-CONTROLLED ICON POD */}
+                      <div className="relative flex h-13 w-13 shrink-0 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.03] text-zinc-400 transition-all duration-500 group-hover:border-cyan-400/40 group-hover:bg-cyan-500/10 group-hover:text-cyan-200 group-hover:shadow-[0_0_25px_rgba(34,211,238,0.2)]">
+                        <Icon size={22} className="transition-transform duration-300 group-hover:scale-110" />
+                        <span className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.18),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                       </div>
+
                       <div>
-                        <h3 className="text-2xl font-bold text-white transition-colors duration-300 group-hover:text-cyan-300">
+                        <h3 className="text-xl sm:text-2xl font-bold text-white transition-colors duration-300 group-hover:text-cyan-200">
                           {category.title}
                         </h3>
-                        <p className="text-xs text-slate-400 mt-0.5">
+                        <p className="text-xs text-zinc-400 mt-1">
                           {category.subtitle}
                         </p>
                       </div>
                     </div>
-
-                    <span className="rounded-full border border-cyan-400/20 bg-cyan-400/5 px-3 py-1 font-mono text-[11px] font-semibold text-cyan-400">
-                      {category.skills.length} Tools
-                    </span>
                   </div>
 
-                  {/* Skills Pills */}
-                  <div className="flex flex-wrap gap-2.5 pt-2">
+                  {/* Clean Minimalist Skills Pills - No visual clutter */}
+                  <div className="flex flex-wrap gap-2 pt-2">
                     {category.skills.map((skill) => (
                       <span
                         key={skill}
                         className="
-                          group/pill
                           inline-flex
                           items-center
-                          gap-1.5
-                          rounded-xl
+                          rounded-lg
                           border
-                          border-cyan-400/15
-                          bg-white/[0.04]
-                          px-4
-                          py-2
+                          border-white/[0.07]
+                          bg-white/[0.03]
+                          px-3.5
+                          py-1.5
                           text-xs
-                          sm:text-sm
                           font-medium
-                          text-slate-300
+                          text-zinc-300
                           transition-all
-                          duration-300
+                          duration-200
                           hover:-translate-y-0.5
-                          hover:border-cyan-400/50
+                          hover:border-cyan-400/40
                           hover:bg-cyan-400/10
                           hover:text-white
-                          hover:shadow-[0_0_15px_rgba(34,211,238,0.2)]
+                          hover:shadow-[0_0_15px_rgba(34,211,238,0.15)]
                         "
                       >
-                        <span className="h-1.5 w-1.5 rounded-full bg-cyan-400/60 transition-colors group-hover/pill:bg-cyan-400 group-hover/pill:shadow-[0_0_6px_#22d3ee]" />
                         {skill}
                       </span>
                     ))}
@@ -192,7 +188,6 @@ function Skills() {
             );
           })}
         </div>
-
       </div>
     </section>
   );

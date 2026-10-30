@@ -4,18 +4,18 @@ import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 
 /**
- * Shared SpotlightCard Component
- * Delivers top-tier interactive cursor spotlight & dynamic dotted lights matrix.
+ * Top 0.1% SaaS SpotlightCard Component
+ * Delivers physics-based cursor spotlight & dynamic dotted lights matrix.
  * The dotted lights and radial aura ONLY reveal dynamically around the cursor on hover.
  */
 export default function SpotlightCard({
   children,
   className = "",
-  spotlightColor = "rgba(34, 211, 238, 0.12)",
-  dotColor = "rgba(34, 211, 238, 0.4)",
+  spotlightColor = "rgba(34, 211, 238, 0.08)",
+  dotColor = "rgba(34, 211, 238, 0.35)",
   dotSize = "22px",
-  spotlightRadius = 340,
-  initialY = 40,
+  spotlightRadius = 320,
+  initialY = 30,
   animate = true,
   onClick,
   ...props
@@ -50,7 +50,7 @@ export default function SpotlightCard({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
-      className={`group relative overflow-hidden rounded-[28px] border border-cyan-400/15 bg-[#070e1b]/80 backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/40 hover:shadow-[0_0_45px_rgba(34,211,238,0.16)] ${className}`}
+      className={`group relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-[#070b14]/75 backdrop-blur-2xl transition-all duration-500 hover:border-cyan-400/35 hover:shadow-[0_0_40px_rgba(34,211,238,0.12)] ${className}`}
       {...motionProps}
       {...props}
     >
@@ -58,7 +58,7 @@ export default function SpotlightCard({
       <div
         className="pointer-events-none absolute inset-0 rounded-[28px] transition-opacity duration-500"
         style={{
-          opacity: isHovered ? 0.75 : 0,
+          opacity: isHovered ? 0.65 : 0,
           backgroundImage: `radial-gradient(${dotColor} 1.5px, transparent 1.5px)`,
           backgroundSize: `${dotSize} ${dotSize}`,
           maskImage: `radial-gradient(${spotlightRadius}px circle at ${mousePos.x}px ${mousePos.y}px, black 30%, transparent 80%)`,
@@ -71,7 +71,7 @@ export default function SpotlightCard({
         className="pointer-events-none absolute -inset-px rounded-[28px] transition-opacity duration-300"
         style={{
           opacity: isHovered ? 1 : 0,
-          background: `radial-gradient(${spotlightRadius * 1.3}px circle at ${mousePos.x}px ${mousePos.y}px, ${spotlightColor}, transparent 75%)`,
+          background: `radial-gradient(${spotlightRadius * 1.2}px circle at ${mousePos.x}px ${mousePos.y}px, ${spotlightColor}, transparent 75%)`,
         }}
       />
 
