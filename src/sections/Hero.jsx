@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
@@ -20,42 +20,21 @@ function Hero() {
 
   const handleCommandSearch = (e) => {
     e.preventDefault();
-    const targetElement = document.getElementById("ai-sarthak");
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: "smooth" });
-      const input = targetElement.querySelector("input");
-      if (input) {
-        if (searchQuery.trim()) {
-          input.value = searchQuery;
-          input.dispatchEvent(new Event("input", { bubbles: true }));
-        }
-        setTimeout(() => input.focus(), 600);
-      }
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("open-ai-copilot", { detail: { query: searchQuery } })
+      );
+      setSearchQuery("");
     }
   };
 
-  // Keyboard shortcut listener for CMD+K / Ctrl+K
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        const heroInput = document.getElementById("hero-command-input");
-        if (heroInput) {
-          heroInput.focus();
-        } else {
-          const aiSection = document.getElementById("ai-sarthak");
-          if (aiSection) {
-            aiSection.scrollIntoView({ behavior: "smooth" });
-            const input = aiSection.querySelector("input");
-            if (input) setTimeout(() => input.focus(), 600);
-          }
-        }
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  const openCopilot = () => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("open-ai-copilot", { detail: { query: "" } })
+      );
+    }
+  };
 
   const quickTech = [
     "Next.js 15",
@@ -146,7 +125,7 @@ function Hero() {
               href="#projects"
               className="group flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-center text-xs sm:text-sm font-semibold text-zinc-950 transition-all duration-200 hover:bg-cyan-300 hover:shadow-[0_0_25px_rgba(34,211,238,0.3)]"
             >
-              Explore Architecture
+              Flagship Work
               <ArrowUpRight size={15} strokeWidth={2.5} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
 
@@ -154,16 +133,17 @@ function Hero() {
               href="#experience"
               className="flex items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.03] px-6 py-3 text-center text-xs sm:text-sm font-medium text-zinc-200 backdrop-blur-md transition-all duration-200 hover:border-white/[0.2] hover:bg-white/[0.06] hover:text-white"
             >
-              Experience &amp; Work
+              Experience &amp; Roles
             </a>
 
-            <a
-              href="#ai-sarthak"
+            <button
+              type="button"
+              onClick={openCopilot}
               className="flex items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.03] px-5 py-3 text-center text-xs sm:text-sm font-medium text-zinc-400 backdrop-blur-md transition-all duration-200 hover:border-cyan-400/40 hover:text-cyan-300"
             >
               <Terminal size={14} className="text-cyan-400" />
-              AI Terminal
-            </a>
+              AI Copilot
+            </button>
           </div>
 
           {/* Core Tech Stack Strip */}

@@ -19,13 +19,7 @@ import {
   Sparkles,
   Radio,
   PlayCircle,
-  Lock,
-  Layers,
-  Shield,
-  BarChart,
   ArrowDown,
-  Smartphone,
-  Coins,
   Cpu,
 } from "lucide-react";
 
@@ -232,13 +226,13 @@ function ArchitecturePipelineVisualizer({ steps, title = "System Architecture" }
 }
 
 function Projects() {
-  const projects = [
+  const flagshipProjects = [
     {
       title: "Farmer One Stop Solution",
-      subtitle: "AI-Powered Agri-Tech Platform",
+      subtitle: "AI-Powered Agri-Tech Ecosystem",
       featured: true,
       description:
-        "Comprehensive agricultural ecosystem combining marketplace commerce, equipment rentals, real-time bidding, AI assistance, and secure digital workflows for modern agri-communities.",
+        "Comprehensive agricultural ecosystem combining marketplace commerce, equipment rentals, real-time Socket.io bidding, AI advisory, and secure digital transactions for modern agricultural workflows.",
       tech: ["React.js", "Node.js", "MongoDB", "Socket.io", "Groq AI", "Tailwind CSS"],
       features: [
         "AI Advisory Assistant",
@@ -261,10 +255,10 @@ function Projects() {
     },
     {
       title: "Moody Player",
-      subtitle: "AI Mood-Based Music Platform",
+      subtitle: "AI Computer Vision & Dynamic Audio Platform",
       featured: true,
       description:
-        "AI-driven audio platform that infers emotional states via real-time facial expression analysis and streams curated music via Deezer API with dynamic audio visualization.",
+        "AI-driven audio platform that infers emotional states via real-time facial expression analysis and streams curated music via Deezer API with dynamic audio visualization and personalized playlists.",
       tech: ["React.js", "Node.js", "MongoDB", "Face API", "JWT", "Deezer API"],
       features: [
         "Live Mood Detection",
@@ -285,38 +279,12 @@ function Projects() {
         { name: "Audio Engine", subtitle: "Interactive Visualizer", icon: <PlayCircle size={16} /> },
       ],
     },
-    {
-      title: "Smart Task Manager",
-      subtitle: "Enterprise JWT-Secured Task Platform",
-      tech: ["React.js", "Node.js", "MongoDB", "JWT Auth", "Express.js"],
-      features: [
-        "JWT Authentication & Session Security",
-        "Granular Protected API Routes",
-        "Task State CRUD Operations",
-        "Productivity Dashboard Analytics",
-      ],
-      demo: "https://smart-task-manager-roan.vercel.app/login",
-      github: "https://github.com/devsarthak-1503/smart-task-manager",
-    },
-    {
-      title: "Finance Backend System",
-      subtitle: "High-Security Ledger & Aggregation Engine",
-      tech: ["Node.js", "MongoDB", "JWT", "RBAC", "Aggregation"],
-      features: [
-        "Role-Based Access Control (RBAC)",
-        "Financial Aggregation Pipelines",
-        "Audit Logging & Data Validation",
-        "REST API Microservice Architecture",
-      ],
-      demo: "https://finance-backend-engine.onrender.com/",
-      github: "https://github.com/devsarthak-1503/finance-backend-engine",
-    },
   ];
 
   return (
     <section
       id="projects"
-      aria-label="Featured Projects"
+      aria-label="Flagship Projects"
       className="relative overflow-hidden py-32 scroll-mt-24"
     >
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
@@ -330,15 +298,15 @@ function Projects() {
         >
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-[11px] font-mono uppercase tracking-[0.25em] text-cyan-300">
             <Cpu size={13} className="text-cyan-400" />
-            <span>SELECTED WORK</span>
+            <span>FLAGSHIP ARCHITECTURES</span>
           </div>
 
           <h2 className="text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl">
-            Featured Architectures
+            Selected Flagship Work
           </h2>
 
           <p className="mx-auto mt-5 max-w-2xl text-base sm:text-lg leading-relaxed text-zinc-400">
-            Full-stack platforms and AI implementations engineered for reliability, real-world utility, and clean modular code.
+            Two production-grade platforms engineered with full-stack MERN, machine learning inference, and interactive real-time systems.
           </p>
         </motion.div>
 
@@ -352,20 +320,20 @@ function Projects() {
                 </span>
 
                 <h3 className="mb-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight">
-                  {projects[0].title}
+                  {flagshipProjects[0].title}
                 </h3>
 
                 <p className="mb-4 text-sm sm:text-base font-medium text-zinc-300">
-                  {projects[0].subtitle}
+                  {flagshipProjects[0].subtitle}
                 </p>
 
                 <p className="mb-6 leading-relaxed text-zinc-400 text-sm sm:text-base">
-                  {projects[0].description}
+                  {flagshipProjects[0].description}
                 </p>
 
                 {/* Tech Stack Pills */}
                 <div className="mb-6 flex flex-wrap gap-2">
-                  {projects[0].tech.map((item) => (
+                  {flagshipProjects[0].tech.map((item) => (
                     <span
                       key={item}
                       className="rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-1 text-xs font-medium text-zinc-300 transition-colors hover:border-cyan-400/40 hover:text-white"
@@ -377,7 +345,7 @@ function Projects() {
 
                 {/* Features List */}
                 <div className="mb-8 grid grid-cols-2 gap-y-3 gap-x-2">
-                  {projects[0].features.map((item) => (
+                  {flagshipProjects[0].features.map((item) => (
                     <div
                       key={item}
                       className="flex items-center gap-2 text-xs sm:text-sm font-medium text-zinc-300"
@@ -393,7 +361,7 @@ function Projects() {
                 {/* Action Buttons */}
                 <div className="flex flex-wrap gap-3">
                   <a
-                    href={projects[0].demo}
+                    href={flagshipProjects[0].demo}
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-xs sm:text-sm font-semibold text-zinc-950 transition-all hover:bg-cyan-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)]"
@@ -403,7 +371,7 @@ function Projects() {
                   </a>
 
                   <a
-                    href={projects[0].github}
+                    href={flagshipProjects[0].github}
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.03] px-5 py-2.5 text-xs sm:text-sm font-medium text-zinc-300 backdrop-blur-md transition-all hover:border-white/[0.2] hover:bg-white/[0.06] hover:text-white"
@@ -419,7 +387,7 @@ function Projects() {
             <div className="flex items-center justify-center">
               <div className="w-full max-w-md">
                 <ArchitecturePipelineVisualizer
-                  steps={projects[0].architecture}
+                  steps={flagshipProjects[0].architecture}
                   title="Agri-Tech System Pipeline"
                 />
               </div>
@@ -430,11 +398,11 @@ function Projects() {
         {/* Project 2: Moody Player */}
         <ProjectCard className="mb-12 p-8 sm:p-10 lg:p-12">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-12">
-            {/* Architecture Visualizer (Left on Desktop for alternate cadence) */}
+            {/* Architecture Visualizer (Left on Desktop for rhythm) */}
             <div className="order-2 lg:order-1 flex items-center justify-center">
               <div className="w-full max-w-md">
                 <ArchitecturePipelineVisualizer
-                  steps={projects[1].architecture}
+                  steps={flagshipProjects[1].architecture}
                   title="AI Emotion Detection Flow"
                 />
               </div>
@@ -448,20 +416,20 @@ function Projects() {
                 </span>
 
                 <h3 className="mb-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight">
-                  {projects[1].title}
+                  {flagshipProjects[1].title}
                 </h3>
 
                 <p className="mb-4 text-sm sm:text-base font-medium text-zinc-300">
-                  {projects[1].subtitle}
+                  {flagshipProjects[1].subtitle}
                 </p>
 
                 <p className="mb-6 leading-relaxed text-zinc-400 text-sm sm:text-base">
-                  {projects[1].description}
+                  {flagshipProjects[1].description}
                 </p>
 
                 {/* Tech Stack Pills */}
                 <div className="mb-6 flex flex-wrap gap-2">
-                  {projects[1].tech.map((item) => (
+                  {flagshipProjects[1].tech.map((item) => (
                     <span
                       key={item}
                       className="rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-1 text-xs font-medium text-zinc-300 transition-colors hover:border-cyan-400/40 hover:text-white"
@@ -473,7 +441,7 @@ function Projects() {
 
                 {/* Features List */}
                 <div className="mb-8 grid grid-cols-2 gap-y-3 gap-x-2">
-                  {projects[1].features.map((item) => (
+                  {flagshipProjects[1].features.map((item) => (
                     <div
                       key={item}
                       className="flex items-center gap-2 text-xs sm:text-sm font-medium text-zinc-300"
@@ -489,7 +457,7 @@ function Projects() {
                 {/* Action Buttons */}
                 <div className="flex flex-wrap gap-3">
                   <a
-                    href={projects[1].demo}
+                    href={flagshipProjects[1].demo}
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-xs sm:text-sm font-semibold text-zinc-950 transition-all hover:bg-cyan-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)]"
@@ -499,7 +467,7 @@ function Projects() {
                   </a>
 
                   <a
-                    href={projects[1].github}
+                    href={flagshipProjects[1].github}
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.03] px-5 py-2.5 text-xs sm:text-sm font-medium text-zinc-300 backdrop-blur-md transition-all hover:border-white/[0.2] hover:bg-white/[0.06] hover:text-white"
@@ -513,159 +481,31 @@ function Projects() {
           </div>
         </ProjectCard>
 
-        {/* Bottom Row: Smart Task Manager & Finance Backend System */}
-        <div className="grid gap-6 lg:grid-cols-2">
-          {/* Smart Task Manager */}
-          <ProjectCard className="flex flex-col justify-between p-8 sm:p-10">
+        {/* Minimalist SaaS GitHub Discovery Banner */}
+        <div className="rounded-2xl border border-white/[0.08] bg-[#070b14]/75 p-6 sm:p-8 backdrop-blur-xl flex flex-col sm:flex-row items-center justify-between gap-5 text-center sm:text-left">
+          <div className="flex items-center gap-4">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-zinc-400">
+              <GitBranch size={20} className="text-cyan-400" />
+            </div>
             <div>
-              <div className="mb-6 flex items-center justify-between">
-                {/* Controlled Light Icon Pod */}
-                <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.03] text-zinc-400 transition-all duration-500 group-hover:border-cyan-400/40 group-hover:bg-cyan-500/10 group-hover:text-cyan-200 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]">
-                  <ShieldCheck size={24} />
-                  <span className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.18),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                </div>
-                <span className="rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-zinc-400">
-                  Full Stack MERN
-                </span>
-              </div>
-
-              <h3 className="mb-2 text-2xl font-bold text-white tracking-tight">
-                {projects[2].title}
-              </h3>
-
-              <p className="mb-6 text-sm text-zinc-400 font-medium">
-                {projects[2].subtitle}
+              <p className="text-sm font-semibold text-white">
+                Interested in additional architectures?
               </p>
-
-              {/* Minimalist Grid Metrics */}
-              <div className="mb-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-                <div className="group/stat flex flex-col items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] p-2.5 text-center transition-all duration-300 hover:border-cyan-400/30 hover:bg-cyan-500/5">
-                  <Lock size={15} className="mb-1 text-zinc-400 transition-transform group-hover/stat:scale-110 group-hover/stat:text-cyan-300" />
-                  <span className="text-[11px] font-medium text-zinc-300">JWT Auth</span>
-                </div>
-                <div className="group/stat flex flex-col items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] p-2.5 text-center transition-all duration-300 hover:border-cyan-400/30 hover:bg-cyan-500/5">
-                  <Layers size={15} className="mb-1 text-zinc-400 transition-transform group-hover/stat:scale-110 group-hover/stat:text-cyan-300" />
-                  <span className="text-[11px] font-medium text-zinc-300">Full CRUD</span>
-                </div>
-                <div className="group/stat flex flex-col items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] p-2.5 text-center transition-all duration-300 hover:border-cyan-400/30 hover:bg-cyan-500/5">
-                  <Shield size={15} className="mb-1 text-zinc-400 transition-transform group-hover/stat:scale-110 group-hover/stat:text-cyan-300" />
-                  <span className="text-[11px] font-medium text-zinc-300">Protected APIs</span>
-                </div>
-                <div className="group/stat flex flex-col items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] p-2.5 text-center transition-all duration-300 hover:border-cyan-400/30 hover:bg-cyan-500/5">
-                  <Smartphone size={15} className="mb-1 text-zinc-400 transition-transform group-hover/stat:scale-110 group-hover/stat:text-cyan-300" />
-                  <span className="text-[11px] font-medium text-zinc-300">Responsive UI</span>
-                </div>
-              </div>
-
-              {/* Features list */}
-              <div className="mb-6 space-y-2.5">
-                {projects[2].features.map((item) => (
-                  <div key={item} className="flex items-center gap-2 text-xs sm:text-sm text-zinc-300">
-                    <div className="h-1 w-1 rounded-full bg-cyan-400/70" />
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Bottom Actions */}
-            <div className="flex flex-wrap gap-3 border-t border-white/[0.06] pt-6">
-              <a
-                href={projects[2].demo}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-1.5 rounded-xl bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition-all hover:bg-cyan-300"
-              >
-                <span>Live Demo</span>
-                <ArrowUpRight size={13} />
-              </a>
-              <a
-                href={projects[2].github}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-1.5 rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-2 text-xs font-medium text-zinc-300 transition-all hover:border-white/[0.2] hover:text-white"
-              >
-                <GitBranch size={13} />
-                <span>Source Code</span>
-              </a>
-            </div>
-          </ProjectCard>
-
-          {/* Finance Backend System */}
-          <ProjectCard className="flex flex-col justify-between p-8 sm:p-10">
-            <div>
-              <div className="mb-6 flex items-center justify-between">
-                {/* Controlled Light Icon Pod */}
-                <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.03] text-zinc-400 transition-all duration-500 group-hover:border-cyan-400/40 group-hover:bg-cyan-500/10 group-hover:text-cyan-200 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]">
-                  <Database size={24} />
-                  <span className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.18),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                </div>
-                <span className="rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-zinc-400">
-                  Backend Architecture
-                </span>
-              </div>
-
-              <h3 className="mb-2 text-2xl font-bold text-white tracking-tight">
-                {projects[3].title}
-              </h3>
-
-              <p className="mb-6 text-sm text-zinc-400 font-medium">
-                {projects[3].subtitle}
+              <p className="text-xs text-zinc-400 mt-0.5">
+                Inspect 32+ additional repositories including JWT task platforms, financial ledger engines, and microservices.
               </p>
-
-              {/* Minimalist Grid Metrics */}
-              <div className="mb-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-                <div className="group/stat flex flex-col items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] p-2.5 text-center transition-all duration-300 hover:border-cyan-400/30 hover:bg-cyan-500/5">
-                  <Shield size={15} className="mb-1 text-zinc-400 transition-transform group-hover/stat:scale-110 group-hover/stat:text-cyan-300" />
-                  <span className="text-[11px] font-medium text-zinc-300">RBAC</span>
-                </div>
-                <div className="group/stat flex flex-col items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] p-2.5 text-center transition-all duration-300 hover:border-cyan-400/30 hover:bg-cyan-500/5">
-                  <BarChart size={15} className="mb-1 text-zinc-400 transition-transform group-hover/stat:scale-110 group-hover/stat:text-cyan-300" />
-                  <span className="text-[11px] font-medium text-zinc-300">Aggregation</span>
-                </div>
-                <div className="group/stat flex flex-col items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] p-2.5 text-center transition-all duration-300 hover:border-cyan-400/30 hover:bg-cyan-500/5">
-                  <Lock size={15} className="mb-1 text-zinc-400 transition-transform group-hover/stat:scale-110 group-hover/stat:text-cyan-300" />
-                  <span className="text-[11px] font-medium text-zinc-300">JWT Security</span>
-                </div>
-                <div className="group/stat flex flex-col items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] p-2.5 text-center transition-all duration-300 hover:border-cyan-400/30 hover:bg-cyan-500/5">
-                  <Coins size={15} className="mb-1 text-zinc-400 transition-transform group-hover/stat:scale-110 group-hover/stat:text-cyan-300" />
-                  <span className="text-[11px] font-medium text-zinc-300">Financial APIs</span>
-                </div>
-              </div>
-
-              {/* Features list */}
-              <div className="mb-6 space-y-2.5">
-                {projects[3].features.map((item) => (
-                  <div key={item} className="flex items-center gap-2 text-xs sm:text-sm text-zinc-300">
-                    <div className="h-1 w-1 rounded-full bg-cyan-400/70" />
-                    {item}
-                  </div>
-                ))}
-              </div>
             </div>
+          </div>
 
-            {/* Bottom Actions */}
-            <div className="flex flex-wrap gap-3 border-t border-white/[0.06] pt-6">
-              <a
-                href={projects[3].demo}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-1.5 rounded-xl bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition-all hover:bg-cyan-300"
-              >
-                <span>Live API</span>
-                <ArrowUpRight size={13} />
-              </a>
-              <a
-                href={projects[3].github}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-1.5 rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-2 text-xs font-medium text-zinc-300 transition-all hover:border-white/[0.2] hover:text-white"
-              >
-                <GitBranch size={13} />
-                <span>Source Code</span>
-              </a>
-            </div>
-          </ProjectCard>
+          <a
+            href="https://github.com/devsarthak-1503"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-white/[0.1] bg-white/[0.04] px-4 py-2 text-xs font-medium text-zinc-200 transition-all hover:border-cyan-400/40 hover:bg-cyan-500/10 hover:text-white"
+          >
+            <span>Explore All on GitHub</span>
+            <ArrowUpRight size={13} />
+          </a>
         </div>
       </div>
     </section>

@@ -5,9 +5,9 @@ import Experience from "@/sections/Experience";
 import Skills from "@/sections/Skills";
 import Projects from "@/sections/Projects";
 import Github from "@/sections/Github";
-import AISarthak from "@/sections/AISarthak";
 import Contact from "@/sections/Contact";
 import Footer from "@/sections/Footer";
+import AICopilotDrawer from "@/components/AICopilotDrawer";
 
 export default function Home() {
   return (
@@ -16,7 +16,7 @@ export default function Home() {
       {/* GLOBAL BACKGROUND ATMOSPHERE - TOP 0.1% SAAS MINIMALISM  */}
       {/* ======================================================== */}
       
-      {/* Crisp Ultra-Faint Grid */}
+      {/* Crisp Ultra-Faint Engineering Grid */}
       <div className="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
       
       {/* Subtle Ambient Dot Matrix */}
@@ -27,7 +27,7 @@ export default function Home() {
       <div className="pointer-events-none fixed top-1/3 left-[-15%] z-0 h-[700px] w-[700px] rounded-full bg-indigo-600/[0.03] blur-[200px]" />
       <div className="pointer-events-none fixed bottom-1/4 right-[-10%] z-0 h-[600px] w-[600px] rounded-full bg-cyan-400/[0.025] blur-[180px]" />
 
-      {/* Main Content Flow */}
+      {/* Main Page Flow */}
       <div className="relative z-10">
         <Navbar />
 
@@ -37,10 +37,12 @@ export default function Home() {
         <Skills />
         <Projects />
         <Github />
-        <AISarthak />
         <Contact />
 
         <Footer />
+
+        {/* Top-Tier SaaS Interactive AI Copilot (Corner Avatar + Drawer) */}
+        <AICopilotDrawer />
       </div>
     </main>
   );

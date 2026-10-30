@@ -28,7 +28,6 @@ function Footer() {
     { name: "Skills", href: "#skills" },
     { name: "Projects", href: "#projects" },
     { name: "GitHub", href: "#github" },
-    { name: "AI Sarthak", href: "#ai-sarthak" },
     { name: "Contact", href: "#contact" },
   ];
 

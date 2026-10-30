@@ -12,7 +12,6 @@ function Navbar() {
     { name: "Skills", href: "#skills" },
     { name: "Projects", href: "#projects" },
     { name: "GitHub", href: "#github" },
-    { name: "AI Sarthak", href: "#ai-sarthak" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -51,7 +50,7 @@ function Navbar() {
               </a>
 
               {/* Desktop Menu */}
-              <ul className="hidden lg:flex items-center gap-7">
+              <ul className="hidden lg:flex items-center gap-8">
                 {navLinks.map((link) => (
                   <li key={link.name}>
                     <a
