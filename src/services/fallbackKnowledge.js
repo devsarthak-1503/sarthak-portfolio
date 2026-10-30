@@ -82,3 +82,4 @@ export function getSmartPortfolioAnswer(question = "") {
 
   return "**Sarthak Gaikwad** is a Full Stack MERN Developer and Software Developer at **Bynaric Systems**, engineering enterprise web platforms, scalable REST APIs, and AI integrations (**React**, **Next.js 15**, **Node.js**, **PostgreSQL**, **MongoDB**, **Groq AI**).\n\nFeel free to ask about his enterprise work at Bynaric, flagship projects (*Farmer One Stop Solution*, *Moody Player*), or technical stack!";
 }
+
