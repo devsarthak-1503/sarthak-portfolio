@@ -1,5 +1,6 @@
 import Groq from "groq-sdk";
 import { portfolioContext } from "@/data/portfolioContext";
+import { getSmartPortfolioAnswer } from "./fallbackKnowledge";
 
 const rawApiKey =
   (typeof process !== "undefined" && process.env.NEXT_PUBLIC_GROQ_API_KEY) ||
@@ -53,17 +54,16 @@ export const askAISarthak = async (
         }
       }
     } catch (err) {
-      console.warn("Server route /api/chat fallback to client SDK:", err?.message || err);
+      console.warn("Server route /api/chat fallback to client SDK / knowledge engine:", err?.message || err);
     }
 
-    // 2. Secondary Strategy: Direct client SDK fallback
+    // 2. Secondary Strategy: Direct client SDK fallback if client-side key configured
     const groq = getGroqClient();
 
     if (!groq) {
         return {
-            success: false,
-            answer:
-                "I am currently operating in offline mode because the Groq API key is not configured. Please reach out to Sarthak directly via the contact form or email (sarthakgaikwad020@gmail.com).",
+            success: true,
+            answer: getSmartPortfolioAnswer(userQuestion),
         };
     }
 
@@ -112,15 +112,7 @@ ${portfolioContext}
           max_tokens: 250,
         });
 
-        const answer = completion?.choices?.[0]?.message?.content;
-
-        if (!answer) {
-          return {
-            success: false,
-            answer:
-              "I couldn't generate a response at the moment. Please feel free to try again or reach out to Sarthak directly.",
-          };
-        }
+        const answer = completion?.choices?.[0]?.message?.content || getSmartPortfolioAnswer(userQuestion);
 
         return {
           success: true,
@@ -128,12 +120,11 @@ ${portfolioContext}
         };
 
     } catch (error) {
-        console.warn("Groq API request notice:", error?.message || error);
+        console.warn("Groq API request notice, serving smart fallback:", error?.message || error);
 
         return {
-          success: false,
-          answer:
-            "I'm temporarily unable to reach my AI service. Please connect with Sarthak directly via email or LinkedIn!",
+          success: true,
+          answer: getSmartPortfolioAnswer(userQuestion),
         };
     }
 };

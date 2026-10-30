@@ -1,12 +1,15 @@
 import { NextResponse } from "next/server";
 import Groq from "groq-sdk";
 import { portfolioContext } from "@/data/portfolioContext";
+import { getSmartPortfolioAnswer } from "@/services/fallbackKnowledge";
 
 export async function POST(req) {
+  let userQuestion = "";
   try {
     const { question, history = [] } = await req.json();
+    userQuestion = question || "";
 
-    if (!question || typeof question !== "string") {
+    if (!userQuestion || typeof userQuestion !== "string") {
       return NextResponse.json(
         { success: false, error: "Question is required." },
         { status: 400 }
@@ -14,9 +17,18 @@ export async function POST(req) {
     }
 
     const apiKey =
-      process.env.GROQ_API_KEY ||
-      process.env.NEXT_PUBLIC_GROQ_API_KEY ||
+      (process.env.GROQ_API_KEY && process.env.GROQ_API_KEY.trim()) ||
+      (process.env.NEXT_PUBLIC_GROQ_API_KEY && process.env.NEXT_PUBLIC_GROQ_API_KEY.trim()) ||
       "";
+
+    // If API key is not yet configured in Vercel environment variables,
+    // seamlessly provide instant, accurate verified answer from Sarthak's knowledge base.
+    if (!apiKey) {
+      return NextResponse.json({
+        success: true,
+        answer: getSmartPortfolioAnswer(userQuestion),
+      });
+    }
 
     const groq = new Groq({ apiKey });
 
@@ -52,7 +64,7 @@ ${portfolioContext}
 
     messages.push({
       role: "user",
-      content: question,
+      content: userQuestion,
     });
 
     const completion = await groq.chat.completions.create({
@@ -64,7 +76,7 @@ ${portfolioContext}
 
     const answer =
       completion?.choices?.[0]?.message?.content ||
-      "I couldn't generate a response at this moment. Please try asking again!";
+      getSmartPortfolioAnswer(userQuestion);
 
     return NextResponse.json({
       success: true,
@@ -73,13 +85,10 @@ ${portfolioContext}
   } catch (error) {
     console.error("API /api/chat error:", error?.message || error);
 
-    return NextResponse.json(
-      {
-        success: false,
-        answer:
-          "I experienced a brief communication hiccup while contacting Groq AI. Please feel free to retry or connect with Sarthak directly!",
-      },
-      { status: 200 }
-    );
+    // Guaranteed graceful fallback so AI Sarthak never breaks or throws communication errors in production
+    return NextResponse.json({
+      success: true,
+      answer: getSmartPortfolioAnswer(userQuestion),
+    });
   }
 }
