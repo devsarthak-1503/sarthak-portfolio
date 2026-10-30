@@ -13,8 +13,6 @@ import {
   MicOff,
   User,
   Terminal,
-  Volume2,
-  VolumeX,
   CircleDot,
   RotateCcw,
   Command,
@@ -85,6 +83,18 @@ export default function AICopilotDrawer() {
   useEffect(() => {
     voiceModeEnabledRef.current = voiceModeEnabled;
   }, [voiceModeEnabled]);
+
+  // Restore voice preference from localStorage on mount
+  useEffect(() => {
+    try {
+      if (typeof window !== "undefined") {
+        const saved = localStorage.getItem("sarthak_ai_voice_pref");
+        if (saved === "true") setVoiceModeEnabled(true);
+      }
+    } catch {
+      // Ignore
+    }
+  }, []);
 
   const suggestedQuestions = [
     "Tell me about Sarthak's work at Bynaric Systems",
@@ -187,8 +197,18 @@ export default function AICopilotDrawer() {
   }, []);
 
   const toggleVoiceMode = () => {
-    if (voiceModeEnabled) {
-      setVoiceModeEnabled(false);
+    const nextState = !voiceModeEnabled;
+    setVoiceModeEnabled(nextState);
+
+    try {
+      if (typeof window !== "undefined") {
+        localStorage.setItem("sarthak_ai_voice_pref", nextState.toString());
+      }
+    } catch {
+      // Ignore
+    }
+
+    if (!nextState) {
       setIsListening(false);
       setIsSpeaking(false);
       try {
@@ -198,7 +218,6 @@ export default function AICopilotDrawer() {
       }
       stopSpeaking();
     } else {
-      setVoiceModeEnabled(true);
       try {
         recognitionRef.current?.start();
       } catch {
@@ -243,7 +262,7 @@ export default function AICopilotDrawer() {
         ...prev,
         {
           role: "ai",
-          text: "I encountered a network timeout. Sarthak specializes in full-stack MERN, enterprise apps at Bynaric Systems, and AI integrations. Please try asking again!",
+          text: "I encountered a brief network timeout. Sarthak specializes in full-stack MERN, enterprise apps at Bynaric Systems, and AI integrations. Please try asking again!",
           timestamp: new Date(),
         },
       ]);
@@ -485,6 +504,12 @@ export default function AICopilotDrawer() {
                     type="text"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSendMessage();
+                      }
+                    }}
                     placeholder={
                       voiceModeEnabled && isListening
                         ? "Listening to voice input..."
@@ -517,7 +542,7 @@ export default function AICopilotDrawer() {
                 </form>
 
                 <div className="mt-2 flex items-center justify-between text-[10px] font-mono text-zinc-500 px-1">
-                  <span>Press Enter to send</span>
+                  <span>Enter to send</span>
                   <span>Esc to close</span>
                 </div>
               </div>

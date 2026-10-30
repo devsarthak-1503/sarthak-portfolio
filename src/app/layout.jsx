@@ -6,31 +6,26 @@ const siteUrl = "https://sarthak-portfolio-virid.vercel.app";
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Sarthak Gaikwad | Full Stack MERN Developer & AI Engineer",
+    default: "Sarthak Gaikwad | Full Stack Software Developer & AI Engineer",
     template: "%s | Sarthak Gaikwad",
   },
   description:
-    "Official portfolio of Sarthak Gaikwad, a Full Stack MERN Developer specializing in high-performance web applications, scalable backend systems, AI integrations, and real-time platforms. Explore featured projects, tech stack, and interactive AI assistant.",
+    "Official portfolio of Sarthak Gaikwad, Software Developer at Bynaric Systems and Full Stack MERN engineer specializing in scalable enterprise web applications, Next.js, PostgreSQL, REST APIs, and integrated AI capabilities.",
   keywords: [
     "Sarthak Gaikwad",
     "Sarthak Gaikwad Portfolio",
+    "Software Developer",
     "Full Stack Developer",
-    "Full Stack MERN Developer",
-    "MERN Stack Developer India",
-    "React Developer",
+    "Bynaric Systems",
     "Next.js Developer",
+    "React Developer",
+    "PostgreSQL Engineer",
     "Node.js Backend Developer",
     "MongoDB Engineer",
-    "Express.js REST APIs",
-    "AI Integration Specialist",
-    "Groq AI Developer",
+    "AI Integration Developer",
     "Farmer One Stop Solution",
     "Moody Player AI",
-    "Smart Task Manager",
-    "Finance Backend System",
-    "JavaScript Developer Pune",
-    "Web Development Portfolio",
-    "Software Engineer Portfolio",
+    "Software Engineer Pune",
   ],
   authors: [{ name: "Sarthak Gaikwad", url: siteUrl }],
   creator: "Sarthak Gaikwad",
@@ -54,24 +49,24 @@ export const metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "Sarthak Gaikwad Portfolio",
-    title: "Sarthak Gaikwad | Full Stack MERN Developer & AI Engineer",
+    title: "Sarthak Gaikwad | Full Stack Software Developer & AI Engineer",
     description:
-      "Full Stack MERN Developer building scalable web applications, REST APIs, AI chatbots, and real-time platforms with React, Next.js, Node.js, and MongoDB.",
+      "Software Developer at Bynaric Systems building scalable web applications, REST APIs, and AI integrations with Next.js, React, Node.js, and PostgreSQL.",
     images: [
       {
         url: "/Avatar.png",
         width: 1200,
         height: 630,
-        alt: "Sarthak Gaikwad - Full Stack MERN Developer",
+        alt: "Sarthak Gaikwad - Full Stack Software Developer",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sarthak Gaikwad | Full Stack MERN Developer & AI Engineer",
+    title: "Sarthak Gaikwad | Full Stack Software Developer & AI Engineer",
     description:
-      "Full Stack MERN Developer building scalable web applications, REST APIs, AI chatbots, and real-time platforms with React, Next.js, Node.js, and MongoDB.",
+      "Software Developer at Bynaric Systems building scalable web applications, REST APIs, and AI integrations with Next.js, React, Node.js, and PostgreSQL.",
     images: ["/Avatar.png"],
     creator: "@sarthakgaikwad",
   },
@@ -86,14 +81,13 @@ export const metadata = {
     apple: "/favicon.svg",
   },
   other: {
-    "theme-color": "#050816",
+    "theme-color": "#03050a",
     "color-scheme": "dark",
     "format-detection": "telephone=no",
   },
 };
 
 export default function RootLayout({ children }) {
-  // Comprehensive Structured Data (JSON-LD) for Maximum Google Knowledge Graph & Rich Results
   const personJsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -101,11 +95,15 @@ export default function RootLayout({ children }) {
         "@type": "Person",
         "@id": `${siteUrl}/#person`,
         name: "Sarthak Gaikwad",
-        jobTitle: "Full Stack MERN Developer & AI Engineer",
+        jobTitle: "Software Developer & Full Stack AI Engineer",
+        worksFor: {
+          "@type": "Organization",
+          name: "Bynaric Systems Pvt. Ltd.",
+        },
         url: siteUrl,
         image: `${siteUrl}/Avatar.png`,
         description:
-          "Full Stack MERN Developer focused on building scalable web applications, modern architectures, and AI-powered digital products.",
+          "Software Developer at Bynaric Systems focused on building scalable enterprise web applications, resilient architectures, and AI-powered digital products.",
         email: "mailto:sarthakgaikwad020@gmail.com",
         address: {
           "@type": "PostalAddress",
@@ -114,7 +112,7 @@ export default function RootLayout({ children }) {
         },
         alumniOf: {
           "@type": "EducationalOrganization",
-          name: "Savitribai Phule Pune University (SPPU)",
+          name: "SND College of Engineering and Research Center",
         },
         sameAs: [
           "https://github.com/devsarthak-1503",
@@ -122,20 +120,19 @@ export default function RootLayout({ children }) {
         ],
         knowsAbout: [
           "Full Stack Development",
-          "MERN Stack",
-          "React.js",
           "Next.js",
+          "React.js",
           "Node.js",
+          "TypeScript",
           "Express.js",
+          "PostgreSQL",
+          "Sequelize",
           "MongoDB",
           "Tailwind CSS",
-          "JavaScript",
           "REST APIs",
           "Artificial Intelligence",
           "Groq AI",
-          "ElevenLabs",
           "Socket.io",
-          "Database Architecture",
         ],
       },
       {
@@ -144,23 +141,11 @@ export default function RootLayout({ children }) {
         url: siteUrl,
         name: "Sarthak Gaikwad Portfolio",
         description:
-          "Official developer portfolio showcasing MERN stack projects, GitHub activity, and AI assistant.",
+          "Official developer portfolio showcasing enterprise experience at Bynaric Systems, flagship AI platforms, and interactive AI copilot.",
         publisher: {
           "@id": `${siteUrl}/#person`,
         },
         inLanguage: "en-US",
-      },
-      {
-        "@type": "ProfilePage",
-        "@id": `${siteUrl}/#profilepage`,
-        url: siteUrl,
-        name: "Sarthak Gaikwad - Full Stack MERN Developer",
-        isPartOf: {
-          "@id": `${siteUrl}/#website`,
-        },
-        mainEntity: {
-          "@id": `${siteUrl}/#person`,
-        },
       },
     ],
   };
@@ -173,7 +158,7 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
       </head>
-      <body className="antialiased bg-[#050816] text-white selection:bg-cyan-500/30 selection:text-cyan-300">
+      <body className="font-sans antialiased bg-[#03050a] text-zinc-100 selection:bg-cyan-500/25 selection:text-white">
         {children}
         <Analytics />
       </body>
